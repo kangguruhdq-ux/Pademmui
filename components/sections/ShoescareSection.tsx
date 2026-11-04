@@ -1,8 +1,7 @@
+import Link from "next/link";
 import { shoescareProgram } from "@/data/programs";
-import { Check, ShieldCheck, ArrowRight, Sparkles, RefreshCw } from "lucide-react";
-import { siteConfig } from "@/data/site";
+import { Check, ShieldCheck, ArrowRight, Sparkles, RefreshCw, Calendar } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
-import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export default function ShoescareSection() {
   return (
@@ -64,18 +63,16 @@ export default function ShoescareSection() {
                   </div>
                 </div>
 
-                {/* CTA with authentic WhatsApp icon & tactile animation */}
+                {/* CTA linking directly to booking form */}
                 <div className="pt-4 flex flex-col sm:flex-row items-center gap-4">
-                  <a
-                    href={siteConfig.contacts.waShoescareLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    href="/booking?type=academy&service=ac-shoescare"
                     className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] font-bold text-xs tracking-wide transition-all duration-300 shadow-gold-glow flex items-center justify-center gap-2 hover:scale-105 active:scale-95"
                   >
-                    <WhatsAppIcon className="w-4 h-4 fill-[#0A0A0A]" />
-                    <span>Daftar Kelas ShoesCare via WA</span>
+                    <Calendar className="w-4 h-4" />
+                    <span>Daftar / Booking ShoesCare Academy</span>
                     <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
+                  </Link>
                   <span className="text-xs text-text-muted">
                     Lokasi: Studio Wonocatur Banguntapan, Bantul
                   </span>

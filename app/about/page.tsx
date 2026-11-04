@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ShieldCheck, Award, HeartHandshake, MapPin, ArrowRight, CheckCircle2 } from "lucide-react";
+import { ShieldCheck, Award, HeartHandshake, MapPin, ArrowRight, CheckCircle2, Calendar } from "lucide-react";
 import { siteConfig } from "@/data/site";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 
@@ -139,15 +139,14 @@ export default function AboutPage() {
               Konsultasikan kebutuhan kelas Anda, baik kelas offline di Jogja maupun e-course online.
             </p>
           </div>
-          <a
-            href={siteConfig.contacts.waBarberLink}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/booking"
             className="flex-shrink-0 px-8 py-3.5 rounded-xl bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] font-bold text-xs tracking-wide shadow-gold-glow flex items-center gap-2 transition-all hover:scale-105 active:scale-95"
           >
-            <WhatsAppIcon className="w-4 h-4 fill-[#0A0A0A]" />
-            <span>Chat Admin WhatsApp</span>
-          </a>
+            <Calendar className="w-4 h-4" />
+            <span>Book Appointment & Konsultasi</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
       </div>
     </div>

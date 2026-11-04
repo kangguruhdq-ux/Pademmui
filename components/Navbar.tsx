@@ -9,6 +9,7 @@ import {
   ArrowRight,
   ChevronRight,
   Calendar,
+  GraduationCap,
   Scissors,
   Sparkles,
   Video,
@@ -262,16 +263,14 @@ export default function Navbar() {
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
 
-            <a
-              href={siteConfig.contacts.waBarberLink}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/booking?type=academy"
               onClick={() => setMobileMenuOpen(false)}
               className="w-full py-3 px-5 rounded-xl bg-[#141414] hover:bg-[#1A1A1A] border border-white/10 text-text-secondary hover:text-text-ivory font-medium text-center text-xs flex items-center justify-center gap-2 transition-all active:scale-95"
             >
-              <WhatsAppIcon className="w-4 h-4 fill-accent-gold" />
-              <span>Konsultasi WA Admin</span>
-            </a>
+              <GraduationCap className="w-4 h-4 text-accent-gold" />
+              <span>Konsultasi Kursus Barber (Isi Form)</span>
+            </Link>
           </div>
 
           {/* Studio address snippet */}

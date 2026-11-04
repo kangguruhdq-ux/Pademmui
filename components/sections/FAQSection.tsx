@@ -1,11 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { faqList } from "@/data/faq";
-import { ChevronDown, HelpCircle } from "lucide-react";
-import { siteConfig } from "@/data/site";
+import { ChevronDown, HelpCircle, Calendar, ArrowRight } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
-import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -80,15 +79,14 @@ export default function FAQSection() {
             <p className="text-xs sm:text-sm text-text-secondary">
               Punya pertanyaan lain yang belum terjawab di sini?
             </p>
-            <a
-              href={siteConfig.contacts.waBarberLink}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/booking?type=academy&service=ac-general"
               className="inline-flex items-center gap-2 text-xs font-bold text-accent-gold hover:text-accent-gold-light hover:underline"
             >
-              <WhatsAppIcon className="w-4 h-4 fill-accent-gold" />
-              <span>Tanya Langsung ke Admin Pademmui via WhatsApp</span>
-            </a>
+              <Calendar className="w-4 h-4" />
+              <span>Konsultasi Pertanyaan & Cek Jadwal via Form Booking</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
         </ScrollReveal>
       </div>

@@ -1,9 +1,7 @@
+import Link from "next/link";
 import { barberOfflinePackages } from "@/data/programs";
-import { Check, Star, Briefcase, ArrowRight, ShieldCheck, Sparkles } from "lucide-react";
-import { createWhatsAppUrl } from "@/lib/utils";
-import { siteConfig } from "@/data/site";
+import { Check, Star, Briefcase, ArrowRight, ShieldCheck, Sparkles, Calendar } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
-import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export default function Programs() {
   return (
@@ -39,7 +37,14 @@ export default function Programs() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {barberOfflinePackages.map((pkg, idx) => {
             const isRec = pkg.isPopular;
-            const waUrl = createWhatsAppUrl(siteConfig.contacts.phoneBarber, pkg.waMessage);
+            const serviceId =
+              pkg.id === "paket-1"
+                ? "ac-paket-1"
+                : pkg.id === "paket-2"
+                ? "ac-paket-2"
+                : pkg.id === "paket-3"
+                ? "ac-paket-3"
+                : "ac-paket-4";
 
             return (
               <ScrollReveal
@@ -123,22 +128,20 @@ export default function Programs() {
                     </div>
                   </div>
 
-                  {/* Package Footer & CTA */}
+                  {/* Package Footer & Direct Link to Booking Form */}
                   <div className="p-6 sm:p-7 pt-0 mt-auto">
-                    <a
-                      href={waUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href={`/booking?type=academy&service=${serviceId}`}
                       className={`w-full py-3.5 px-4 rounded-xl text-xs font-bold tracking-wide transition-all duration-300 flex items-center justify-center gap-2 active:scale-95 ${
                         isRec
-                          ? "bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] shadow-gold-glow"
-                          : "bg-surface-elevated hover:bg-surface-highlight border border-white/10 text-text-ivory hover:text-accent-gold hover:border-accent-gold/40"
+                          ? "bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] shadow-gold-glow hover:scale-105"
+                          : "bg-surface-elevated hover:bg-surface-highlight border border-white/10 text-text-ivory hover:text-accent-gold hover:border-accent-gold/40 hover:scale-105"
                       }`}
                     >
-                      <WhatsAppIcon className={`w-4 h-4 ${isRec ? "fill-[#0A0A0A]" : "fill-accent-gold"}`} />
-                      <span>{pkg.ctaText}</span>
+                      <Calendar className="w-4 h-4" />
+                      <span>Daftar & Booking {pkg.name}</span>
                       <ArrowRight className="w-3.5 h-3.5" />
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </ScrollReveal>

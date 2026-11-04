@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { galleryPhotos } from "@/data/gallery";
-import { Camera, Eye, ArrowLeft } from "lucide-react";
+import { Camera, Eye, ArrowLeft, Calendar, ArrowRight } from "lucide-react";
 import { GalleryPhoto } from "@/types";
 import { siteConfig } from "@/data/site";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
@@ -126,15 +126,14 @@ export default function GalleryClient() {
           <p className="text-xs sm:text-sm text-text-secondary">
             Bimbingan hanya untuk 3 siswa per sesi dengan fasilitas mess dan model manusia asli disediakan.
           </p>
-          <a
-            href={siteConfig.contacts.waBarberLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] font-bold text-xs shadow-gold-glow transition-all hover:scale-105 active:scale-95"
+          <Link
+            href="/booking"
+            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] font-bold text-xs shadow-gold-glow transition-all hover:scale-105 active:scale-95"
           >
-            <WhatsAppIcon className="w-4 h-4 fill-[#0A0A0A]" />
-            <span>Konsultasi Pendaftaran Kursus</span>
-          </a>
+            <Calendar className="w-4 h-4" />
+            <span>Book Appointment & Konsultasi Kursus</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
 
         {/* Portal-based Image Lightbox (Directly centered in viewport without scrolling) */}

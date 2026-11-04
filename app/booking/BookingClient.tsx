@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import {
   Scissors,
   GraduationCap,
@@ -35,12 +36,35 @@ import {
 } from "@/lib/booking";
 
 export default function BookingClient() {
-  // Current active step (1 to 5)
-  const [currentStep, setCurrentStep] = useState<number>(1);
+  const searchParams = useSearchParams();
+  const queryType = searchParams.get("type");
+  const queryService = searchParams.get("service");
+
+  const initialType: "barbershop" | "academy" =
+    queryType === "academy"
+      ? "academy"
+      : queryType === "barbershop"
+      ? "barbershop"
+      : queryService?.startsWith("ac-")
+      ? "academy"
+      : "barbershop";
 
   // Form states (preserved across steps)
-  const [bookingType, setBookingType] = useState<"barbershop" | "academy">("barbershop");
-  const [selectedServiceId, setSelectedServiceId] = useState<string>("bs-haircut");
+  const [bookingType, setBookingType] = useState<"barbershop" | "academy">(initialType);
+  const [selectedServiceId, setSelectedServiceId] = useState<string>(() => {
+    if (queryService && bookingServices.some((s) => s.id === queryService)) {
+      return queryService;
+    }
+    return initialType === "academy" ? "ac-paket-1" : "bs-haircut";
+  });
+
+  // Current active step (1 to 5). If service is specified via URL, jump directly to Step 3 (Schedule)
+  const [currentStep, setCurrentStep] = useState<number>(() => {
+    if (queryService && bookingServices.some((s) => s.id === queryService)) {
+      return 3;
+    }
+    return 1;
+  });
   const [appointmentDate, setAppointmentDate] = useState<string>("");
   const [preferredTime, setPreferredTime] = useState<string>("");
   const [fullName, setFullName] = useState<string>("");
@@ -241,10 +265,11 @@ export default function BookingClient() {
                   <button
                     type="button"
                     onClick={() => {
-                      // Only allow jumping back to completed steps
-                      if (isCompleted) setCurrentStep(step.number);
+                      if (isCompleted || (queryService && step.number < currentStep)) {
+                        setCurrentStep(step.number);
+                      }
                     }}
-                    disabled={!isCompleted}
+                    disabled={!isCompleted && !(queryService && step.number < currentStep)}
                     className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 ${
                       isActive
                         ? "bg-accent-gold text-[#0A0A0A] ring-4 ring-accent-gold/20 shadow-gold-glow scale-110"
@@ -477,6 +502,30 @@ export default function BookingClient() {
                 <p className="text-xs sm:text-sm text-text-secondary">
                   Pilih waktu kunjungan yang Anda kehendaki. Jadwal akan divalidasi dan dikonfirmasi langsung oleh admin.
                 </p>
+              </div>
+
+              {/* Selected service badge summary with change button */}
+              <div className="p-3.5 rounded-xl bg-white/[0.04] border border-accent-gold/30 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-accent-gold/10 text-accent-gold flex items-center justify-center flex-shrink-0">
+                    {bookingType === "barbershop" ? <Scissors className="w-4 h-4" /> : <GraduationCap className="w-4 h-4" />}
+                  </div>
+                  <div>
+                    <span className="text-[10px] uppercase tracking-wider text-text-muted font-bold block">
+                      Layanan Terpilih:
+                    </span>
+                    <p className="text-xs sm:text-sm font-bold text-accent-gold">
+                      {selectedService.name} {selectedService.price ? `(${selectedService.price})` : ""}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setCurrentStep(2)}
+                  className="text-xs font-semibold text-text-ivory hover:text-accent-gold px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-colors flex-shrink-0"
+                >
+                  Ubah Layanan
+                </button>
               </div>
 
               {/* Verified Schedule Notice */}
