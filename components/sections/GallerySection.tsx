@@ -6,6 +6,7 @@ import Link from "next/link";
 import { galleryPhotos } from "@/data/gallery";
 import { Camera, ArrowRight, Eye, X } from "lucide-react";
 import { GalleryPhoto } from "@/types";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export default function GallerySection() {
   const [activeFilter, setActiveFilter] = useState<string>("all");
@@ -28,78 +29,87 @@ export default function GallerySection() {
     <section id="galeri" className="py-24 bg-[#080808] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-          <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-gold/10 border border-accent-gold/20 text-xs text-accent-gold font-semibold uppercase tracking-wider">
-              <Camera className="w-3.5 h-3.5" />
-              <span>Dokumentasi Otentik</span>
+        <ScrollReveal direction="up">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div className="space-y-3 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-gold/10 border border-accent-gold/20 text-xs text-accent-gold font-semibold uppercase tracking-wider">
+                <Camera className="w-3.5 h-3.5" />
+                <span>Dokumentasi Otentik</span>
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-text-ivory">
+                Aktivitas Nyata di Studio Pademmui
+              </h2>
+              <p className="text-sm text-text-secondary">
+                Bukan foto ilustrasi asing. Semua foto diambil langsung dari proses belajar mengajar, praktek model manusia, dan wisuda alumni kami di Yogyakarta.
+              </p>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-text-ivory">
-              Aktivitas Nyata di Studio Pademmui
-            </h2>
-            <p className="text-sm text-text-secondary">
-              Bukan foto ilustrasi asing. Semua foto diambil langsung dari proses belajar mengajar, praktek model manusia, dan wisuda alumni kami di Yogyakarta.
-            </p>
-          </div>
 
-          <Link
-            href="/gallery"
-            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-accent-gold hover:text-accent-gold-light py-2"
-          >
-            <span>Buka Seluruh Galeri ({galleryPhotos.length}+)</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
+            <Link
+              href="/gallery"
+              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-accent-gold hover:text-accent-gold-light py-2"
+            >
+              <span>Buka Seluruh Galeri ({galleryPhotos.length}+)</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </ScrollReveal>
 
         {/* Category Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveFilter(cat.id)}
-              className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
-                activeFilter === cat.id
-                  ? "bg-accent-gold text-[#0A0A0A]"
-                  : "bg-surface-elevated text-text-secondary hover:text-text-ivory border border-white/5"
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
-        </div>
+        <ScrollReveal direction="up" delay={150}>
+          <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveFilter(cat.id)}
+                className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
+                  activeFilter === cat.id
+                    ? "bg-accent-gold text-[#0A0A0A]"
+                    : "bg-surface-elevated text-text-secondary hover:text-text-ivory border border-white/5"
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+        </ScrollReveal>
 
         {/* Photos Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-          {filteredPhotos.map((photo) => (
-            <div
+          {filteredPhotos.map((photo, idx) => (
+            <ScrollReveal
               key={photo.id}
-              onClick={() => setSelectedPhoto(photo)}
-              className="group relative rounded-2xl overflow-hidden bg-surface-elevated border border-white/10 aspect-[3/4] cursor-pointer"
+              direction="up"
+              delay={idx * 80}
             >
-              <Image
-                src={photo.src}
-                alt={photo.alt}
-                fill
-                sizes="(max-width: 768px) 50vw, 25vw"
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
+              <div
+                onClick={() => setSelectedPhoto(photo)}
+                className="group relative rounded-2xl overflow-hidden bg-surface-elevated border border-white/10 aspect-[3/4] cursor-pointer"
+              >
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
 
-              {/* Hover overlay caption */}
-              <div className="absolute inset-x-3 bottom-3 text-left">
-                <span className="text-[10px] uppercase font-bold tracking-wider text-accent-gold block">
-                  {photo.category}
-                </span>
-                <p className="text-xs font-semibold text-text-ivory truncate mt-0.5">
-                  {photo.caption}
-                </p>
-              </div>
+                {/* Hover overlay caption */}
+                <div className="absolute inset-x-3 bottom-3 text-left">
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-accent-gold block">
+                    {photo.category}
+                  </span>
+                  <p className="text-xs font-semibold text-text-ivory truncate mt-0.5">
+                    {photo.caption}
+                  </p>
+                </div>
 
-              {/* Zoom hint */}
-              <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-text-ivory opacity-0 group-hover:opacity-100 transition-opacity">
-                <Eye className="w-3.5 h-3.5" />
+                {/* Zoom hint */}
+                <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-text-ivory opacity-0 group-hover:opacity-100 transition-opacity">
+                  <Eye className="w-3.5 h-3.5" />
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
 

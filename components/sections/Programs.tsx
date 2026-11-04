@@ -2,6 +2,7 @@ import { barberOfflinePackages } from "@/data/programs";
 import { Check, Star, Briefcase, ArrowRight, ShieldCheck, Sparkles } from "lucide-react";
 import { createWhatsAppUrl } from "@/lib/utils";
 import { siteConfig } from "@/data/site";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export default function Programs() {
   return (
@@ -11,151 +12,161 @@ export default function Programs() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-gold/10 border border-accent-gold/20 text-xs text-accent-gold font-semibold tracking-wider uppercase">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Pilihan Paket Resmi</span>
-          </div>
-          <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-text-ivory">
-            Barber Course — Reguler Class
-          </h2>
-          <p className="text-sm sm:text-base text-text-secondary leading-relaxed">
-            Daftar paket bimbingan tatap muka di Pademmui Barberschool Jogja. Transparan, terstruktur, dan disesuaikan dengan tujuan karir atau wirausaha Anda.
-          </p>
+        <ScrollReveal direction="up">
+          <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-gold/10 border border-accent-gold/20 text-xs text-accent-gold font-semibold tracking-wider uppercase">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Pilihan Paket Resmi</span>
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-text-ivory">
+              Barber Course — Reguler Class
+            </h2>
+            <p className="text-sm sm:text-base text-text-secondary leading-relaxed">
+              Daftar paket bimbingan tatap muka di Pademmui Barberschool Jogja. Transparan, terstruktur, dan disesuaikan dengan tujuan karir atau wirausaha Anda.
+            </p>
 
-          <div className="inline-block p-2.5 px-4 rounded-xl bg-surface-elevated border border-white/10 text-xs">
-            <span className="text-text-muted">Kebijakan Penyaluran: </span>
-            <span className="text-accent-gold font-bold">
-              Program Penyaluran Kerja Barbershop Berlaku Mulai Paket 2
-            </span>
+            <div className="inline-block p-2.5 px-4 rounded-xl bg-surface-elevated border border-white/10 text-xs">
+              <span className="text-text-muted">Kebijakan Penyaluran: </span>
+              <span className="text-accent-gold font-bold">
+                Program Penyaluran Kerja Barbershop Berlaku Mulai Paket 2
+              </span>
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* 4 Packages Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
-          {barberOfflinePackages.map((pkg) => {
+          {barberOfflinePackages.map((pkg, idx) => {
             const isRec = pkg.isPopular;
             const waUrl = createWhatsAppUrl(siteConfig.contacts.phoneBarber, pkg.waMessage);
 
             return (
-              <div
+              <ScrollReveal
                 key={pkg.id}
-                className={`relative rounded-2xl flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 ${
-                  isRec
-                    ? "bg-[#161616] border-2 border-accent-gold shadow-gold-glow"
-                    : "bg-[#111111] border border-white/10 hover:border-white/20"
-                }`}
+                direction="up"
+                delay={idx * 120}
+                className="h-full flex flex-col"
               >
-                {/* Recommended Badge */}
-                {isRec && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-accent-gold text-[#0A0A0A] text-[11px] font-black uppercase tracking-widest px-4 py-1 rounded-full shadow-md flex items-center gap-1.5">
-                    <Star className="w-3 h-3 fill-current" />
-                    <span>Paket Terlengkap</span>
-                  </div>
-                )}
-
-                <div className="p-6 sm:p-7 space-y-6">
-                  {/* Package Header */}
-                  <div>
-                    <span className="text-xs uppercase tracking-wider text-accent-gold font-semibold">
-                      {pkg.badge}
-                    </span>
-                    <h3 className="text-2xl font-bold text-text-ivory mt-1">
-                      {pkg.name}
-                    </h3>
-                    <p className="text-xs text-text-muted mt-1 font-mono">
-                      {pkg.sessions} ({pkg.duration})
-                    </p>
-                  </div>
-
-                  {/* Price Block */}
-                  <div className="pt-2 pb-4 border-y border-white/10">
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-2xl sm:text-3xl font-extrabold text-text-ivory tracking-tight">
-                        {pkg.price}
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-text-muted mt-1">
-                      Investasi all-in (Model, Alat, Snack, Sertifikat)
-                    </p>
-                  </div>
-
-                  {/* Job placement badge */}
-                  {pkg.jobPlacement ? (
-                    <div className="p-2.5 rounded-lg bg-green-950/40 border border-green-500/20 flex items-center gap-2 text-xs text-green-300 font-medium">
-                      <Briefcase className="w-4 h-4 text-green-400 flex-shrink-0" />
-                      <span>Termasuk Penyaluran Kerja Jogja</span>
-                    </div>
-                  ) : (
-                    <div className="p-2.5 rounded-lg bg-white/5 border border-white/5 text-xs text-text-muted flex items-center gap-2">
-                      <ShieldCheck className="w-4 h-4 opacity-50 flex-shrink-0" />
-                      <span>Fokus Penguasaan Skill Dasar</span>
+                <div
+                  className={`relative rounded-2xl flex-1 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 ${
+                    isRec
+                      ? "bg-[#161616] border-2 border-accent-gold shadow-gold-glow"
+                      : "bg-[#111111] border border-white/10 hover:border-white/20"
+                  }`}
+                >
+                  {/* Recommended Badge */}
+                  {isRec && (
+                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-accent-gold text-[#0A0A0A] text-[11px] font-black uppercase tracking-widest px-4 py-1 rounded-full shadow-md flex items-center gap-1.5 z-10">
+                      <Star className="w-3 h-3 fill-current" />
+                      <span>Paket Terlengkap</span>
                     </div>
                   )}
 
-                  {/* Description */}
-                  <p className="text-xs leading-relaxed text-text-secondary">
-                    {pkg.description}
-                  </p>
+                  <div className="p-6 sm:p-7 space-y-6 flex-1">
+                    {/* Package Header */}
+                    <div>
+                      <span className="text-xs uppercase tracking-wider text-accent-gold font-semibold">
+                        {pkg.badge}
+                      </span>
+                      <h3 className="text-2xl font-bold text-text-ivory mt-1">
+                        {pkg.name}
+                      </h3>
+                      <p className="text-xs text-text-muted mt-1 font-mono">
+                        {pkg.sessions} ({pkg.duration})
+                      </p>
+                    </div>
 
-                  {/* Features List */}
-                  <div className="space-y-3 pt-2">
-                    <p className="text-[11px] uppercase tracking-wider text-text-muted font-bold">
-                      Materi & Fasilitas:
+                    {/* Price Block */}
+                    <div className="pt-2 pb-4 border-y border-white/10">
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-2xl sm:text-3xl font-extrabold text-text-ivory tracking-tight">
+                          {pkg.price}
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-text-muted mt-1">
+                        Investasi all-in (Model, Alat, Snack, Sertifikat)
+                      </p>
+                    </div>
+
+                    {/* Job placement badge */}
+                    {pkg.jobPlacement ? (
+                      <div className="p-2.5 rounded-lg bg-green-950/40 border border-green-500/20 flex items-center gap-2 text-xs text-green-300 font-medium">
+                        <Briefcase className="w-4 h-4 text-green-400 flex-shrink-0" />
+                        <span>Termasuk Penyaluran Kerja Jogja</span>
+                      </div>
+                    ) : (
+                      <div className="p-2.5 rounded-lg bg-white/5 border border-white/5 text-xs text-text-muted flex items-center gap-2">
+                        <ShieldCheck className="w-4 h-4 opacity-50 flex-shrink-0" />
+                        <span>Fokus Penguasaan Skill Dasar</span>
+                      </div>
+                    )}
+
+                    {/* Description */}
+                    <p className="text-xs leading-relaxed text-text-secondary">
+                      {pkg.description}
                     </p>
-                    <ul className="space-y-2 text-xs text-text-secondary">
-                      {pkg.features.map((feat) => (
-                        <li key={feat} className="flex items-start gap-2">
-                          <Check className="w-3.5 h-3.5 text-accent-gold flex-shrink-0 mt-0.5" />
-                          <span>{feat}</span>
-                        </li>
-                      ))}
-                    </ul>
+
+                    {/* Features List */}
+                    <div className="space-y-3 pt-2">
+                      <p className="text-[11px] uppercase tracking-wider text-text-muted font-bold">
+                        Materi & Fasilitas:
+                      </p>
+                      <ul className="space-y-2 text-xs text-text-secondary">
+                        {pkg.features.map((feat) => (
+                          <li key={feat} className="flex items-start gap-2">
+                            <Check className="w-3.5 h-3.5 text-accent-gold flex-shrink-0 mt-0.5" />
+                            <span>{feat}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Package Footer & CTA */}
+                  <div className="p-6 sm:p-7 pt-0 mt-auto">
+                    <a
+                      href={waUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`w-full py-3.5 px-4 rounded-xl text-xs font-bold tracking-wide transition-all duration-200 flex items-center justify-center gap-2 ${
+                        isRec
+                          ? "bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] shadow-gold-glow"
+                          : "bg-surface-elevated hover:bg-surface-highlight border border-white/10 text-text-ivory hover:text-accent-gold"
+                      }`}
+                    >
+                      <span>{pkg.ctaText}</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </a>
                   </div>
                 </div>
-
-                {/* Package Footer & CTA */}
-                <div className="p-6 sm:p-7 pt-0">
-                  <a
-                    href={waUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`w-full py-3.5 px-4 rounded-xl text-xs font-bold tracking-wide transition-all duration-200 flex items-center justify-center gap-2 ${
-                      isRec
-                        ? "bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] shadow-gold-glow"
-                        : "bg-surface-elevated hover:bg-surface-highlight border border-white/10 text-text-ivory hover:text-accent-gold"
-                    }`}
-                  >
-                    <span>{pkg.ctaText}</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
-                </div>
-              </div>
+              </ScrollReveal>
             );
           })}
         </div>
 
         {/* Pricing Inclusions Summary */}
-        <div className="mt-14 p-6 sm:p-8 rounded-2xl bg-surface-elevated border border-white/10 grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-text-secondary">
-          <div className="space-y-1.5">
-            <h4 className="font-bold text-text-ivory text-sm">Sudah Termasuk Model Orang</h4>
-            <p>
-              Tidak perlu mencari atau membayar model sendiri. Semua model kepala manusia disediakan langsung oleh Pademmui.
-            </p>
+        <ScrollReveal direction="up" delay={200} className="mt-14">
+          <div className="p-6 sm:p-8 rounded-2xl bg-surface-elevated border border-white/10 grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-text-secondary">
+            <div className="space-y-1.5">
+              <h4 className="font-bold text-text-ivory text-sm">Sudah Termasuk Model Orang</h4>
+              <p>
+                Tidak perlu mencari atau membayar model sendiri. Semua model kepala manusia disediakan langsung oleh Pademmui.
+              </p>
+            </div>
+            <div className="space-y-1.5">
+              <h4 className="font-bold text-text-ivory text-sm">Fasilitas Mess Peserta</h4>
+              <p>
+                Khusus peserta dari luar Jogja, mess siap dihuni hanya dengan kontribusi utilitas Rp200.000 sampai lulus.
+              </p>
+            </div>
+            <div className="space-y-1.5">
+              <h4 className="font-bold text-text-ivory text-sm">Garansi Bimbingan Sampai Bisa</h4>
+              <p>
+                Jika ada teknik yang belum dikuasai, mentor membimbing dengan sabar dan konsultasi tetap aktif seumur hidup.
+              </p>
+            </div>
           </div>
-          <div className="space-y-1.5">
-            <h4 className="font-bold text-text-ivory text-sm">Fasilitas Mess Peserta</h4>
-            <p>
-              Khusus peserta dari luar Jogja, mess siap dihuni hanya dengan kontribusi utilitas Rp200.000 sampai lulus.
-            </p>
-          </div>
-          <div className="space-y-1.5">
-            <h4 className="font-bold text-text-ivory text-sm">Garansi Bimbingan Sampai Bisa</h4>
-            <p>
-              Jika ada teknik yang belum dikuasai, mentor membimbing dengan sabar dan konsultasi tetap aktif seumur hidup.
-            </p>
-          </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );
