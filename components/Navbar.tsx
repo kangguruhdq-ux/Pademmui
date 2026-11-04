@@ -64,34 +64,40 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-[80] transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-[80] transition-all duration-300 ${
           isScrolled
-            ? "bg-[#080808]/95 backdrop-blur-md border-b border-white/10 shadow-luxury py-3"
-            : "bg-gradient-to-b from-black/95 via-black/70 to-transparent py-4 sm:py-5"
+            ? "bg-[#080808]/95 backdrop-blur-md border-b border-white/10 shadow-luxury"
+            : "bg-gradient-to-b from-black/95 via-black/70 to-transparent"
         }`}
+        style={{
+          paddingTop: isScrolled
+            ? "calc(env(safe-area-inset-top, 0px) + 0.875rem)"
+            : "calc(env(safe-area-inset-top, 0px) + 1.125rem)",
+          paddingBottom: isScrolled ? "0.875rem" : "1.125rem",
+        }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center justify-between gap-3 sm:gap-4">
             {/* Brand Logo & Title */}
             <Link
               href="/"
-              className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold rounded-lg py-1 flex-shrink-0"
+              className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold rounded-lg flex-shrink-0"
             >
-              <div className="relative w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0 bg-black/60 rounded-xl p-1 border border-white/15 transition-transform duration-300 group-hover:scale-105 shadow-md">
+              <div className="relative w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0 bg-black/60 rounded-xl p-1 border border-white/15 transition-transform duration-300 group-hover:scale-105 shadow-md">
                 <Image
                   src="/images/logo_badge.png"
                   alt="Pademmui Barbershop & Barberschool Logo"
                   fill
                   priority
-                  sizes="(max-width: 640px) 44px, 48px"
+                  sizes="(max-width: 640px) 40px, 48px"
                   className="object-contain"
                 />
               </div>
-              <div className="flex flex-col">
-                <span className="font-serif text-lg sm:text-xl font-bold tracking-wider text-text-ivory group-hover:text-accent-gold transition-colors duration-200">
+              <div className="flex flex-col justify-center">
+                <span className="font-serif text-base sm:text-xl font-bold tracking-wider text-text-ivory group-hover:text-accent-gold transition-colors duration-200 leading-tight">
                   PADEMMUI
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.22em] text-accent-gold font-medium">
+                <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-accent-gold font-medium leading-tight">
                   BARBERSCHOOL • EST 2017
                 </span>
               </div>
@@ -163,11 +169,14 @@ export default function Navbar() {
 
       {/* Redesigned Luxury Boutique Mobile Menu Drawer (z-[70]) */}
       <div
-        className={`lg:hidden fixed inset-x-0 top-[65px] sm:top-[72px] z-[70] bg-[#0C0C0C]/98 backdrop-blur-2xl border-b border-white/15 px-5 pt-4 pb-10 shadow-2xl max-h-[calc(100vh-70px)] overflow-y-auto transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`lg:hidden fixed inset-x-0 z-[70] bg-[#0C0C0C]/98 backdrop-blur-2xl border-b border-white/15 px-5 pt-4 pb-10 shadow-2xl max-h-[calc(100vh-80px)] overflow-y-auto transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           mobileMenuOpen
             ? "translate-y-0 opacity-100 pointer-events-auto"
             : "-translate-y-6 opacity-0 pointer-events-none"
         }`}
+        style={{
+          top: "calc(env(safe-area-inset-top, 0px) + 66px)",
+        }}
       >
         <div className="max-w-md mx-auto space-y-4">
           {/* Header indicator */}
