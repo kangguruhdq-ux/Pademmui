@@ -1,0 +1,57 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Next.js
+/.next/
+/out/
+
+# Production
+/build
+
+# Misc
+.DS_Store
+*.pem
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env*.local
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Temporary scraper cache / scratch
+temp_antislop/
+scraped_*.html
+scraped_*.txt
+*.texts.txt
+found_*.json
+all_*.json
+download_manifest.json
+crawled_assets_manifest.json
+inspect_gallery.py
+scrape.py
+deep_scrape.py
+extract_links.py
+fetch_subroutes.py
+fetch_more_routes.py
+parse_content.py
+parse_more.py
+download_all_images.py
+categorize_assets.py
+process_logo.py
+organize_images.py
+crawled_assets/
+analyze_new_pages.py

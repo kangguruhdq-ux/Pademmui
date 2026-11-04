@@ -1,0 +1,36 @@
+export const siteConfig = {
+  name: "Pademmui Barberschool",
+  legalName: "PT Pademmui",
+  establishedYear: 2017,
+  tagline: "Shave • For Gentlemen's • Premium",
+  description: "Akademi kursus potong rambut profesional dan manajemen barbershop di Yogyakarta. Bimbingan intensif maksimal 3 siswa per kelas, praktek model manusia asli, mess disediakan, bersertifikat, dan program penyaluran kerja.",
+  domain: "https://pademmui.id",
+  location: {
+    address: "Jalan Wonocatur No.15, Banguntapan, Bantul, Daerah Istimewa Yogyakarta 55198",
+    city: "Yogyakarta",
+    province: "D.I. Yogyakarta",
+    country: "Indonesia",
+    googleMapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.8808602652436!2d110.40428577589255!3d-7.798939377413697!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5744955b253b%3A0xb2ce43c081e7d23f!2sJl.%20Wonocatur%20No.15%2C%20Wonocatur%2C%20Banguntapan%2C%20Kec.%20Banguntapan%2C%20Kabupaten%20Bantul%2C%20Daerah%20Istimewa%20Yogyakarta%2055198!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid",
+    googleMapsUrl: "https://maps.google.com/?q=Jalan+Wonocatur+No.15+Banguntapan+Bantul+Yogyakarta",
+  },
+  contacts: {
+    phoneBarber: "+6282134060584",
+    phoneBarberDisplay: "+62 821-3406-0584",
+    phoneShoescare: "+6281262484009",
+    phoneShoescareDisplay: "+62 812-6248-4009",
+    waBarberLink: "https://api.whatsapp.com/send?phone=6282134060584&text=Halo+admin+Pademmui%2C+saya+ingin+konsultasi+pendaftaran+kursus+barber+di+Yogyakarta.",
+    waShoescareLink: "https://api.whatsapp.com/send?phone=6281262484009&text=Halo+admin+Pademmui+Shoescare%2C+saya+tertarik+mengikuti+kelas+offlinenya+di+Jogja.",
+    waGroupLink: "https://chat.whatsapp.com/KcHIJsp8PsoCrUiporKWLk?ilr=4&mlu=4&p=a&s=cl",
+    telegramLink: "https://t.me/+xEhU-7Oly6I3Njll",
+    lynkCheckout: "http://lynk.id/pademmui/9v4emodm5dx2/checkout",
+  },
+  socials: {
+    instagram: "https://www.instagram.com/pademmuibarbershop",
+  },
+  stats: [
+    { label: "Tahun Pengalaman", value: "8+", sub: "Sejak didirikan tahun 2017" },
+    { label: "Maksimal Siswa", value: "3 Siswa", sub: "Bimbingan eksklusif per batch" },
+    { label: "Model Praktek", value: "100%", sub: "Kepala manusia asli (bukan boneka)" },
+    { label: "Alumni Terbantu", value: "1.000+", sub: "Dari berbagai penjuru nusantara" },
+  ],
+};
