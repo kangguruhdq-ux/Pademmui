@@ -164,6 +164,12 @@ export default function Footer() {
                 </a>
               </li>
               <li>
+                <Link href="/booking" className="text-accent-gold font-bold hover:underline transition-colors flex items-center gap-1">
+                  <span>Book Appointment Online</span>
+                  <ArrowUpRight className="w-3 h-3" />
+                </Link>
+              </li>
+              <li>
                 <Link href="/#materi-gratis" className="hover:text-accent-gold transition-colors">
                   Materi Video Cukur Gratis
                 </Link>

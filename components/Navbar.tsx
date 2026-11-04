@@ -6,8 +6,9 @@ import Image from "next/image";
 import {
   Menu,
   X,
-  ArrowUpRight,
+  ArrowRight,
   ChevronRight,
+  Calendar,
   Scissors,
   Sparkles,
   Video,
@@ -56,12 +57,13 @@ export default function Navbar() {
     { name: "Testimoni", href: "/#testimoni", icon: Star },
     { name: "Tentang", href: "/about", icon: Info },
     { name: "Kontak", href: "/contact", icon: Phone },
+    { name: "Booking", href: "/booking", icon: Calendar, badge: "Reservasi" },
   ];
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-[80] transition-all duration-500 ${
           isScrolled
             ? "bg-[#080808]/95 backdrop-blur-md border-b border-white/10 shadow-luxury py-3"
             : "bg-gradient-to-b from-black/95 via-black/70 to-transparent py-4 sm:py-5"
@@ -95,7 +97,7 @@ export default function Navbar() {
             </Link>
 
             {/* Desktop Navigation Links — Spacious, Relaxed, with Gold Hover Line */}
-            <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+            <nav className="hidden lg:flex items-center gap-5 xl:gap-7">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
@@ -109,98 +111,135 @@ export default function Navbar() {
               ))}
             </nav>
 
-            {/* Desktop Right CTA with Official WhatsApp Icon */}
+            {/* Desktop Right CTA: Book Appointment */}
             <div className="hidden sm:flex items-center gap-3 flex-shrink-0">
-              <a
-                href={siteConfig.contacts.waBarberLink}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/booking"
                 className="relative group inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] text-xs font-bold tracking-wide transition-all duration-300 shadow-gold-glow hover:scale-105 active:scale-95"
               >
-                <WhatsAppIcon className="w-4 h-4 fill-[#0A0A0A]" />
-                <span>Konsultasi WA</span>
-                <ArrowUpRight className="w-3.5 h-3.5 opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </a>
+                <Calendar className="w-4 h-4" />
+                <span>Book Appointment</span>
+                <ArrowRight className="w-3.5 h-3.5 opacity-70 group-hover:translate-x-0.5 transition-transform" />
+              </Link>
             </div>
 
-            {/* Mobile Hamburger & Quick WA Button */}
+            {/* Mobile Hamburger & Quick Booking Button */}
             <div className="flex lg:hidden items-center gap-2">
-              <a
-                href={siteConfig.contacts.waBarberLink}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/booking"
                 className="sm:hidden p-2.5 text-accent-gold bg-surface-elevated border border-white/10 rounded-full hover:scale-105 active:scale-95 transition-transform"
-                aria-label="Konsultasi WhatsApp"
+                aria-label="Book Appointment"
               >
-                <WhatsAppIcon className="w-4 h-4 fill-accent-gold" />
-              </a>
+                <Calendar className="w-4 h-4" />
+              </Link>
 
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2.5 rounded-xl text-text-ivory hover:text-accent-gold bg-surface-elevated/90 border border-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold transition-colors"
-                aria-label={mobileMenuOpen ? "Tutup menu" : "Buka menu navigasi"}
+                className="p-2.5 rounded-xl text-text-ivory hover:text-accent-gold bg-surface-elevated/90 border border-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold transition-colors relative z-[90]"
+                aria-label={mobileMenuOpen ? "Tutup menu navigasi" : "Buka menu navigasi"}
                 aria-expanded={mobileMenuOpen}
               >
-                {mobileMenuOpen ? <X className="w-5 h-5 text-accent-gold" /> : <Menu className="w-5 h-5" />}
+                {mobileMenuOpen ? (
+                  <X className="w-5 h-5 text-accent-gold" />
+                ) : (
+                  <Menu className="w-5 h-5" />
+                )}
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Mobile Backdrop Overlay with Smooth Fade */}
+      {/* Mobile Backdrop Overlay (z-[60] so it sits under the header at z-[80]) */}
       <div
-        className={`lg:hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md transition-opacity duration-300 ${
+        className={`lg:hidden fixed inset-0 z-[60] bg-black/80 backdrop-blur-md transition-opacity duration-300 ${
           mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setMobileMenuOpen(false)}
         aria-hidden="true"
       />
 
-      {/* Redesigned Luxury Boutique Mobile Menu Drawer */}
+      {/* Redesigned Luxury Boutique Mobile Menu Drawer (z-[70]) */}
       <div
-        className={`lg:hidden fixed inset-x-0 top-[68px] z-50 bg-[#0C0C0C]/98 backdrop-blur-2xl border-b border-white/15 px-5 pt-4 pb-10 shadow-2xl max-h-[calc(100vh-70px)] overflow-y-auto transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`lg:hidden fixed inset-x-0 top-[65px] sm:top-[72px] z-[70] bg-[#0C0C0C]/98 backdrop-blur-2xl border-b border-white/15 px-5 pt-4 pb-10 shadow-2xl max-h-[calc(100vh-70px)] overflow-y-auto transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           mobileMenuOpen
             ? "translate-y-0 opacity-100 pointer-events-auto"
             : "-translate-y-6 opacity-0 pointer-events-none"
         }`}
       >
         <div className="max-w-md mx-auto space-y-4">
-          {/* Header indicator */}
+          {/* Header indicator with explicit close button */}
           <div className="flex items-center justify-between pb-3 border-b border-white/10">
-            <span className="text-[11px] uppercase tracking-widest text-text-muted font-bold">
-              Menu Eksklusif Pademmui
-            </span>
-            <span className="inline-flex items-center gap-1.5 text-xs text-accent-gold font-semibold bg-accent-gold/10 px-3 py-1 rounded-full border border-accent-gold/25">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent-gold animate-pulse" />
-              Maks. 3 Siswa / Kelas
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] uppercase tracking-widest text-text-muted font-bold">
+                Menu Eksklusif
+              </span>
+              <span className="inline-flex items-center gap-1.5 text-[10px] text-accent-gold font-semibold bg-accent-gold/10 px-2.5 py-0.5 rounded-full border border-accent-gold/25">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent-gold animate-pulse" />
+                Maks. 3 Siswa
+              </span>
+            </div>
+
+            {/* Explicit Close Button inside Drawer Header */}
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(false)}
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-accent-gold text-xs font-semibold border border-white/10 transition-colors active:scale-95"
+              aria-label="Tutup menu"
+            >
+              <X className="w-3.5 h-3.5" />
+              <span>Tutup</span>
+            </button>
           </div>
 
           {/* Interactive Navigation Cards Grid */}
           <nav className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
             {navLinks.map((link) => {
               const Icon = link.icon;
+              const isBooking = link.name === "Booking";
+
               return (
                 <Link
                   key={link.name}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="group flex items-center justify-between p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] active:bg-white/[0.1] border border-white/5 hover:border-accent-gold/40 transition-all duration-200 active:scale-[0.98]"
+                  className={`group flex items-center justify-between p-3 rounded-xl border transition-all duration-200 active:scale-[0.98] ${
+                    isBooking
+                      ? "bg-accent-gold/10 border-accent-gold/30 hover:bg-accent-gold/20"
+                      : "bg-white/[0.03] hover:bg-white/[0.08] active:bg-white/[0.1] border-white/5 hover:border-accent-gold/40"
+                  }`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-accent-gold/10 border border-accent-gold/20 flex items-center justify-center text-accent-gold group-hover:scale-110 transition-transform">
+                    <div
+                      className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform group-hover:scale-110 ${
+                        isBooking
+                          ? "bg-accent-gold text-[#0A0A0A]"
+                          : "bg-accent-gold/10 border border-accent-gold/20 text-accent-gold"
+                      }`}
+                    >
                       <Icon className="w-4 h-4" />
                     </div>
-                    <span className="text-sm font-semibold text-text-ivory group-hover:text-accent-gold transition-colors">
+                    <span
+                      className={`text-sm font-semibold transition-colors ${
+                        isBooking
+                          ? "text-accent-gold font-bold"
+                          : "text-text-ivory group-hover:text-accent-gold"
+                      }`}
+                    >
                       {link.name}
                     </span>
                   </div>
 
                   <div className="flex items-center gap-2">
                     {link.badge && (
-                      <span className="text-[10px] font-mono text-accent-gold bg-accent-gold/10 px-2 py-0.5 rounded">
+                      <span
+                        className={`text-[10px] font-mono px-2 py-0.5 rounded ${
+                          isBooking
+                            ? "bg-accent-gold text-[#0A0A0A] font-bold"
+                            : "text-accent-gold bg-accent-gold/10"
+                        }`}
+                      >
                         {link.badge}
                       </span>
                     )}
@@ -211,28 +250,27 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Action CTAs with Official WhatsApp Icons */}
+          {/* Primary Action CTA: Book Appointment */}
           <div className="pt-3 flex flex-col gap-2.5">
+            <Link
+              href="/booking"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full py-3.5 px-5 rounded-xl bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] font-bold text-center text-xs tracking-wide flex items-center justify-center gap-2 shadow-gold-glow transition-all active:scale-95"
+            >
+              <Calendar className="w-4 h-4" />
+              <span>Book Appointment Sekarang</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+
             <a
               href={siteConfig.contacts.waBarberLink}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full py-3.5 px-5 rounded-xl bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] font-bold text-center text-xs tracking-wide flex items-center justify-center gap-2 shadow-gold-glow transition-all active:scale-95"
-            >
-              <WhatsAppIcon className="w-4 h-4 fill-[#0A0A0A]" />
-              <span>Konsultasi Kursus Barber via WA</span>
-            </a>
-
-            <a
-              href={siteConfig.contacts.waShoescareLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full py-3 px-5 rounded-xl bg-[#141414] hover:bg-[#1A1A1A] border border-accent-gold/25 hover:border-accent-gold text-accent-gold font-bold text-center text-xs flex items-center justify-center gap-2 transition-all active:scale-95"
+              className="w-full py-3 px-5 rounded-xl bg-[#141414] hover:bg-[#1A1A1A] border border-white/10 text-text-secondary hover:text-text-ivory font-medium text-center text-xs flex items-center justify-center gap-2 transition-all active:scale-95"
             >
               <WhatsAppIcon className="w-4 h-4 fill-accent-gold" />
-              <span>Info Kursus Cuci Sepatu (ShoesCare)</span>
+              <span>Konsultasi WA Admin</span>
             </a>
           </div>
 

@@ -1,9 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ShieldCheck, MapPin } from "lucide-react";
-import { siteConfig } from "@/data/site";
+import { ArrowRight, ShieldCheck, MapPin, Calendar } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
-import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export default function CTASection() {
   return (
@@ -61,16 +59,14 @@ export default function CTASection() {
         {/* CTAs */}
         <ScrollReveal direction="up" delay={350}>
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href={siteConfig.contacts.waBarberLink}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/booking"
               className="w-full sm:w-auto px-9 py-4 rounded-xl bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] font-bold text-sm tracking-wide transition-all duration-300 shadow-gold-glow flex items-center justify-center gap-2.5 hover:scale-105 active:scale-95"
             >
-              <WhatsAppIcon className="w-4 h-4 fill-[#0A0A0A]" />
-              <span>Konsultasi & Booking Slot via WA</span>
+              <Calendar className="w-4 h-4" />
+              <span>Book Appointment Sekarang</span>
               <ArrowRight className="w-4 h-4" />
-            </a>
+            </Link>
 
             <Link
               href="/contact"

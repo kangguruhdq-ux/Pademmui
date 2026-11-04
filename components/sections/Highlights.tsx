@@ -1,6 +1,6 @@
-import { Users, UserCheck, Home, Briefcase, ShieldAlert, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { Users, UserCheck, Home, Briefcase, ShieldAlert, ArrowRight, Calendar } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
-import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export default function Highlights() {
   const pillars = [
@@ -104,16 +104,14 @@ export default function Highlights() {
               </div>
             </div>
 
-            <a
-              href="https://api.whatsapp.com/send?phone=6282134060584&text=Halo+admin+Pademmui%2C+saya+ingin+cek+ketersediaan+slot+kursus+barber+untuk+bulan+ini."
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/booking"
               className="w-full md:w-auto flex-shrink-0 px-6 py-3 rounded-xl bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] text-xs font-bold tracking-wide transition-all shadow-gold-glow flex items-center justify-center gap-2 active:scale-95 hover:scale-105"
             >
-              <WhatsAppIcon className="w-4 h-4 fill-[#0A0A0A]" />
-              <span>Cek Ketersediaan Slot Bulan Ini</span>
+              <Calendar className="w-4 h-4" />
+              <span>Book Appointment & Cek Jadwal</span>
               <ArrowRight className="w-3.5 h-3.5" />
-            </a>
+            </Link>
           </div>
         </ScrollReveal>
       </div>

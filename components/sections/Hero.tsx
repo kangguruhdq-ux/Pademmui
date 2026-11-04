@@ -1,9 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ChevronDown } from "lucide-react";
-import { siteConfig } from "@/data/site";
+import { ArrowRight, ChevronDown, Calendar } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
-import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export default function Hero() {
   return (
@@ -40,18 +38,16 @@ export default function Hero() {
         </ScrollReveal>
 
         <ScrollReveal delay={450} direction="up">
-          {/* Clean Dual Action CTAs with Authentic WhatsApp Icon */}
+          {/* Clean Dual Action CTAs linking to /booking and /#program */}
           <div className="pt-3 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
-            <a
-              href={siteConfig.contacts.waBarberLink}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/booking"
               className="w-full sm:w-auto px-8 py-4 rounded-xl bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] font-bold text-sm tracking-wide transition-all duration-300 shadow-gold-glow flex items-center justify-center gap-2.5 hover:scale-105 active:scale-95"
             >
-              <WhatsAppIcon className="w-5 h-5 fill-[#0A0A0A]" />
-              <span>Daftar Konsultasi Slot</span>
+              <Calendar className="w-4 h-4" />
+              <span>Book Appointment</span>
               <ArrowRight className="w-4 h-4" />
-            </a>
+            </Link>
 
             <Link
               href="/#program"
