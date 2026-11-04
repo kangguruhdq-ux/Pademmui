@@ -7,10 +7,11 @@ import { ChevronDown, HelpCircle, Calendar, ArrowRight } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export default function FAQSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  // Initially null so NO FAQ item is open automatically until user clicks
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleIndex = (idx: number) => {
-    setOpenIndex(openIndex === idx ? null : idx);
+    setOpenIndex((prev) => (prev === idx ? null : idx));
   };
 
   return (
@@ -32,7 +33,7 @@ export default function FAQSection() {
           </div>
         </ScrollReveal>
 
-        {/* FAQ Accordion List with tactile touch & hover feedback */}
+        {/* FAQ Accordion List with Smooth CSS Grid Animation & Tactile Hover */}
         <div className="space-y-4">
           {faqList.map((faq, idx) => {
             const isOpen = openIndex === idx;
@@ -43,37 +44,58 @@ export default function FAQSection() {
                 direction="up"
                 delay={idx * 60}
               >
-                <div className="rounded-2xl bg-surface-elevated border border-white/10 overflow-hidden transition-all duration-300 hover:border-accent-gold/40 hover:scale-[1.01] active:scale-[0.99] hover:shadow-luxury">
+                <div
+                  className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
+                    isOpen
+                      ? "bg-[#141414] border-accent-gold/50 shadow-gold-glow"
+                      : "bg-surface-elevated border-white/10 hover:border-accent-gold/30 hover:scale-[1.01]"
+                  }`}
+                >
                   <button
                     type="button"
                     onClick={() => toggleIndex(idx)}
-                    className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold"
+                    className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold cursor-pointer"
                     aria-expanded={isOpen}
                   >
-                    <span className="text-sm sm:text-base font-bold text-text-ivory">
+                    <span
+                      className={`text-sm sm:text-base font-bold transition-colors duration-200 ${
+                        isOpen ? "text-accent-gold" : "text-text-ivory"
+                      }`}
+                    >
                       {faq.question}
                     </span>
                     <div
-                      className={`w-7 h-7 rounded-full bg-surface border border-white/10 flex items-center justify-center flex-shrink-0 transition-transform duration-200 ${
-                        isOpen ? "rotate-180 text-accent-gold" : "text-text-muted"
+                      className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+                        isOpen
+                          ? "bg-accent-gold text-[#0A0A0A] rotate-180 shadow-md"
+                          : "bg-surface border border-white/10 text-text-muted hover:text-text-ivory"
                       }`}
                     >
-                      <ChevronDown className="w-4 h-4" />
+                      <ChevronDown className="w-4 h-4 transition-transform duration-300" />
                     </div>
                   </button>
 
-                  {isOpen && (
-                    <div className="px-5 sm:px-6 pb-6 pt-1 text-xs sm:text-sm text-text-secondary leading-relaxed border-t border-white/5 animate-fade-in">
-                      <p>{faq.answer}</p>
+                  {/* Smooth Accordion Body using CSS Grid Rows Animation */}
+                  <div
+                    className={`grid transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                      isOpen
+                        ? "grid-rows-[1fr] opacity-100"
+                        : "grid-rows-[0fr] opacity-0"
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <div className="px-5 sm:px-6 pb-6 pt-2 text-xs sm:text-sm text-text-secondary leading-relaxed border-t border-white/5">
+                        <p>{faq.answer}</p>
+                      </div>
                     </div>
-                  )}
+                  </div>
                 </div>
               </ScrollReveal>
             );
           })}
         </div>
 
-        {/* WhatsApp Help CTA */}
+        {/* Booking Consultation CTA */}
         <ScrollReveal direction="up" delay={200} className="mt-12">
           <div className="text-center p-6 rounded-2xl bg-[#121212] border border-white/5 space-y-3 transition-all duration-300 hover:border-accent-gold/30 hover:scale-[1.01]">
             <p className="text-xs sm:text-sm text-text-secondary">
