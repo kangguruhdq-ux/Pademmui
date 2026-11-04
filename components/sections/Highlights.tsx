@@ -1,5 +1,6 @@
-import { Users, UserCheck, Home, Briefcase, ShieldAlert } from "lucide-react";
+import { Users, UserCheck, Home, Briefcase, ShieldAlert, ArrowRight } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export default function Highlights() {
   const pillars = [
@@ -47,7 +48,7 @@ export default function Highlights() {
           </div>
         </ScrollReveal>
 
-        {/* 4 Pillars Grid with Staggered ScrollReveal */}
+        {/* 4 Pillars Grid with Staggered ScrollReveal & Tactile Touch Response */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {pillars.map((pillar, idx) => {
             const Icon = pillar.icon;
@@ -58,7 +59,7 @@ export default function Highlights() {
                 delay={idx * 120}
                 className="h-full"
               >
-                <div className="h-full group relative p-6 sm:p-7 rounded-2xl bg-surface-elevated/80 border border-white/10 hover:border-accent-gold/40 transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between">
+                <div className="h-full group relative p-6 sm:p-7 rounded-2xl bg-surface-elevated/80 border border-white/10 hover:border-accent-gold/40 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] hover:shadow-gold-glow flex flex-col justify-between cursor-pointer">
                   <div className="space-y-4">
                     <div className="w-12 h-12 rounded-xl bg-accent-gold/10 border border-accent-gold/20 flex items-center justify-center text-accent-gold group-hover:scale-110 transition-transform">
                       <Icon className="w-6 h-6" />
@@ -67,7 +68,7 @@ export default function Highlights() {
                       <span className="text-[11px] uppercase tracking-wider text-accent-gold font-medium block">
                         {pillar.tagline}
                       </span>
-                      <h3 className="text-lg font-bold text-text-ivory mt-1">
+                      <h3 className="text-lg font-bold text-text-ivory mt-1 group-hover:text-accent-gold transition-colors">
                         {pillar.title}
                       </h3>
                     </div>
@@ -86,9 +87,9 @@ export default function Highlights() {
           })}
         </div>
 
-        {/* Realistic Honesty Callout */}
+        {/* Realistic Honesty Callout with tactile response */}
         <ScrollReveal direction="up" delay={200} className="mt-12">
-          <div className="p-6 rounded-2xl bg-[#141414] border border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="p-6 rounded-2xl bg-[#141414] border border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 transition-all duration-300 hover:border-accent-gold/30 hover:scale-[1.01]">
             <div className="flex items-center gap-4 text-left">
               <div className="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 flex-shrink-0">
                 <ShieldAlert className="w-5 h-5" />
@@ -107,9 +108,11 @@ export default function Highlights() {
               href="https://api.whatsapp.com/send?phone=6282134060584&text=Halo+admin+Pademmui%2C+saya+ingin+cek+ketersediaan+slot+kursus+barber+untuk+bulan+ini."
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full md:w-auto flex-shrink-0 px-6 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-text-ivory text-xs font-semibold tracking-wide border border-white/10 transition-colors text-center"
+              className="w-full md:w-auto flex-shrink-0 px-6 py-3 rounded-xl bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] text-xs font-bold tracking-wide transition-all shadow-gold-glow flex items-center justify-center gap-2 active:scale-95 hover:scale-105"
             >
-              Cek Ketersediaan Slot Bulan Ini
+              <WhatsAppIcon className="w-4 h-4 fill-[#0A0A0A]" />
+              <span>Cek Ketersediaan Slot Bulan Ini</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </div>
         </ScrollReveal>

@@ -4,9 +4,11 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { galleryPhotos } from "@/data/gallery";
-import { Camera, Eye, X, ArrowLeft, MessageCircle } from "lucide-react";
+import { Camera, Eye, ArrowLeft } from "lucide-react";
 import { GalleryPhoto } from "@/types";
 import { siteConfig } from "@/data/site";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
+import ImageLightbox from "@/components/ImageLightbox";
 
 export default function GalleryClient() {
   const [activeCategory, setActiveCategory] = useState<string>("all");
@@ -24,6 +26,20 @@ export default function GalleryClient() {
     activeCategory === "all"
       ? galleryPhotos
       : galleryPhotos.filter((p) => p.category === activeCategory);
+
+  const handleNextPhoto = () => {
+    if (!selectedPhoto) return;
+    const currentIndex = filtered.findIndex((p) => p.id === selectedPhoto.id);
+    const nextIndex = (currentIndex + 1) % filtered.length;
+    setSelectedPhoto(filtered[nextIndex]);
+  };
+
+  const handlePrevPhoto = () => {
+    if (!selectedPhoto) return;
+    const currentIndex = filtered.findIndex((p) => p.id === selectedPhoto.id);
+    const prevIndex = (currentIndex - 1 + filtered.length) % filtered.length;
+    setSelectedPhoto(filtered[prevIndex]);
+  };
 
   return (
     <div className="pt-32 pb-24 bg-[#080808] min-h-screen">
@@ -69,13 +85,13 @@ export default function GalleryClient() {
           ))}
         </div>
 
-        {/* Photo Grid */}
+        {/* Photo Grid with tactile touch & hover feedback */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {filtered.map((photo) => (
             <div
               key={photo.id}
               onClick={() => setSelectedPhoto(photo)}
-              className="group relative rounded-2xl overflow-hidden bg-surface-elevated border border-white/10 aspect-[3/4] cursor-pointer"
+              className="group relative rounded-2xl overflow-hidden bg-surface-elevated border border-white/10 hover:border-accent-gold/50 aspect-[3/4] cursor-pointer transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-gold-glow"
             >
               <Image
                 src={photo.src}
@@ -102,8 +118,8 @@ export default function GalleryClient() {
           ))}
         </div>
 
-        {/* Bottom CTA Card */}
-        <div className="mt-16 p-8 rounded-3xl bg-surface-elevated border border-white/10 text-center space-y-4 max-w-2xl mx-auto">
+        {/* Bottom CTA Card with tactile scale & WhatsApp Icon */}
+        <div className="mt-16 p-8 rounded-3xl bg-surface-elevated border border-white/10 text-center space-y-4 max-w-2xl mx-auto transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] hover:border-accent-gold/40 hover:shadow-gold-glow">
           <h3 className="text-xl font-bold text-text-ivory">
             Ingin Mengalami Langsung Proses Belajar Ini?
           </h3>
@@ -114,48 +130,20 @@ export default function GalleryClient() {
             href={siteConfig.contacts.waBarberLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] font-bold text-xs shadow-gold-glow transition-all"
+            className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] font-bold text-xs shadow-gold-glow transition-all hover:scale-105 active:scale-95"
           >
-            <MessageCircle className="w-4 h-4" />
+            <WhatsAppIcon className="w-4 h-4 fill-[#0A0A0A]" />
             <span>Konsultasi Pendaftaran Kursus</span>
           </a>
         </div>
 
-        {/* Modal Lightbox */}
-        {selectedPhoto && (
-          <div
-            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8"
-            onClick={() => setSelectedPhoto(null)}
-          >
-            <div
-              className="relative max-w-4xl max-h-[90vh] w-full flex flex-col items-center"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                onClick={() => setSelectedPhoto(null)}
-                className="absolute -top-12 right-0 p-2 text-text-ivory hover:text-accent-gold"
-                aria-label="Tutup preview"
-              >
-                <X className="w-6 h-6" />
-              </button>
-
-              <div className="relative w-full h-[65vh] sm:h-[75vh] rounded-2xl overflow-hidden bg-[#121212] border border-white/10">
-                <Image
-                  src={selectedPhoto.src}
-                  alt={selectedPhoto.alt}
-                  fill
-                  sizes="90vw"
-                  className="object-contain"
-                />
-              </div>
-
-              <div className="mt-4 text-center">
-                <p className="text-sm font-bold text-text-ivory">{selectedPhoto.caption}</p>
-                <p className="text-xs text-text-secondary mt-1">{selectedPhoto.alt}</p>
-              </div>
-            </div>
-          </div>
-        )}
+        {/* Portal-based Image Lightbox (Directly centered in viewport without scrolling) */}
+        <ImageLightbox
+          photo={selectedPhoto}
+          onClose={() => setSelectedPhoto(null)}
+          onNext={handleNextPhoto}
+          onPrev={handlePrevPhoto}
+        />
       </div>
     </div>
   );

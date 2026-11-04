@@ -4,9 +4,10 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { galleryPhotos } from "@/data/gallery";
-import { Camera, ArrowRight, Eye, X } from "lucide-react";
+import { Camera, ArrowRight, Eye } from "lucide-react";
 import { GalleryPhoto } from "@/types";
 import ScrollReveal from "@/components/ScrollReveal";
+import ImageLightbox from "@/components/ImageLightbox";
 
 export default function GallerySection() {
   const [activeFilter, setActiveFilter] = useState<string>("all");
@@ -24,6 +25,20 @@ export default function GallerySection() {
     activeFilter === "all"
       ? galleryPhotos.slice(0, 8)
       : galleryPhotos.filter((p) => p.category === activeFilter);
+
+  const handleNextPhoto = () => {
+    if (!selectedPhoto) return;
+    const currentIndex = filteredPhotos.findIndex((p) => p.id === selectedPhoto.id);
+    const nextIndex = (currentIndex + 1) % filteredPhotos.length;
+    setSelectedPhoto(filteredPhotos[nextIndex]);
+  };
+
+  const handlePrevPhoto = () => {
+    if (!selectedPhoto) return;
+    const currentIndex = filteredPhotos.findIndex((p) => p.id === selectedPhoto.id);
+    const prevIndex = (currentIndex - 1 + filteredPhotos.length) % filteredPhotos.length;
+    setSelectedPhoto(filteredPhotos[prevIndex]);
+  };
 
   return (
     <section id="galeri" className="py-24 bg-[#080808] relative">
@@ -73,7 +88,7 @@ export default function GallerySection() {
           </div>
         </ScrollReveal>
 
-        {/* Photos Grid */}
+        {/* Photos Grid with tactile hover & active scales */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
           {filteredPhotos.map((photo, idx) => (
             <ScrollReveal
@@ -83,7 +98,7 @@ export default function GallerySection() {
             >
               <div
                 onClick={() => setSelectedPhoto(photo)}
-                className="group relative rounded-2xl overflow-hidden bg-surface-elevated border border-white/10 aspect-[3/4] cursor-pointer"
+                className="group relative rounded-2xl overflow-hidden bg-surface-elevated border border-white/10 hover:border-accent-gold/50 aspect-[3/4] cursor-pointer transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] hover:shadow-gold-glow"
               >
                 <Image
                   src={photo.src}
@@ -113,41 +128,13 @@ export default function GallerySection() {
           ))}
         </div>
 
-        {/* Lightbox Modal */}
-        {selectedPhoto && (
-          <div
-            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8"
-            onClick={() => setSelectedPhoto(null)}
-          >
-            <div
-              className="relative max-w-4xl max-h-[90vh] w-full flex flex-col items-center"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                onClick={() => setSelectedPhoto(null)}
-                className="absolute -top-12 right-0 p-2 text-text-ivory hover:text-accent-gold"
-                aria-label="Tutup preview"
-              >
-                <X className="w-6 h-6" />
-              </button>
-
-              <div className="relative w-full h-[65vh] sm:h-[75vh] rounded-2xl overflow-hidden bg-[#121212] border border-white/10">
-                <Image
-                  src={selectedPhoto.src}
-                  alt={selectedPhoto.alt}
-                  fill
-                  sizes="90vw"
-                  className="object-contain"
-                />
-              </div>
-
-              <div className="mt-4 text-center">
-                <p className="text-sm font-bold text-text-ivory">{selectedPhoto.caption}</p>
-                <p className="text-xs text-text-secondary mt-1">{selectedPhoto.alt}</p>
-              </div>
-            </div>
-          </div>
-        )}
+        {/* Portal-based Image Lightbox (Appears centered in viewport without page scroll jumps) */}
+        <ImageLightbox
+          photo={selectedPhoto}
+          onClose={() => setSelectedPhoto(null)}
+          onNext={handleNextPhoto}
+          onPrev={handlePrevPhoto}
+        />
       </div>
     </section>
   );

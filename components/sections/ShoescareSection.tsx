@@ -1,14 +1,15 @@
 import { shoescareProgram } from "@/data/programs";
-import { Check, ShieldCheck, ArrowRight, Sparkles, MessageCircle, RefreshCw } from "lucide-react";
+import { Check, ShieldCheck, ArrowRight, Sparkles, RefreshCw } from "lucide-react";
 import { siteConfig } from "@/data/site";
 import ScrollReveal from "@/components/ScrollReveal";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export default function ShoescareSection() {
   return (
     <section id="shoescare" className="py-24 bg-[#0A0A0A] relative border-b border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal direction="up">
-          <div className="p-8 sm:p-12 lg:p-16 rounded-3xl bg-surface-elevated/70 border border-white/10 relative overflow-hidden">
+          <div className="p-8 sm:p-12 lg:p-16 rounded-3xl bg-surface-elevated/70 border border-white/10 relative overflow-hidden transition-all duration-300 hover:border-accent-gold/40 hover:shadow-luxury">
             {/* Subtle glow */}
             <div className="absolute top-0 right-0 w-80 h-80 bg-accent-gold/10 blur-[100px] pointer-events-none" />
 
@@ -63,15 +64,15 @@ export default function ShoescareSection() {
                   </div>
                 </div>
 
-                {/* CTA */}
+                {/* CTA with authentic WhatsApp icon & tactile animation */}
                 <div className="pt-4 flex flex-col sm:flex-row items-center gap-4">
                   <a
                     href={siteConfig.contacts.waShoescareLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] font-bold text-xs tracking-wide transition-all shadow-gold-glow flex items-center justify-center gap-2"
+                    className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] font-bold text-xs tracking-wide transition-all duration-300 shadow-gold-glow flex items-center justify-center gap-2 hover:scale-105 active:scale-95"
                   >
-                    <MessageCircle className="w-4 h-4" />
+                    <WhatsAppIcon className="w-4 h-4 fill-[#0A0A0A]" />
                     <span>Daftar Kelas ShoesCare via WA</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </a>
@@ -81,9 +82,9 @@ export default function ShoescareSection() {
                 </div>
               </div>
 
-              {/* Right Card / Inclusions */}
+              {/* Right Card / Inclusions with tactile hover scale */}
               <div className="lg:col-span-5">
-                <div className="p-7 rounded-2xl bg-[#131313] border border-white/10 space-y-6">
+                <div className="p-7 rounded-2xl bg-[#131313] border border-white/10 space-y-6 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] hover:border-accent-gold/40 hover:shadow-gold-glow cursor-pointer">
                   <div>
                     <span className="text-xs uppercase tracking-wider text-accent-gold font-medium">
                       Fasilitas Diterima Siswa

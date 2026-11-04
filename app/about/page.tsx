@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ShieldCheck, Award, HeartHandshake, MapPin, ArrowRight, MessageCircle, CheckCircle2 } from "lucide-react";
+import { ShieldCheck, Award, HeartHandshake, MapPin, ArrowRight, CheckCircle2 } from "lucide-react";
 import { siteConfig } from "@/data/site";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export const metadata: Metadata = {
   title: "Tentang Pademmui Barberschool — Profil & Filosofi",
@@ -142,9 +143,9 @@ export default function AboutPage() {
             href={siteConfig.contacts.waBarberLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-shrink-0 px-8 py-3.5 rounded-xl bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] font-bold text-xs tracking-wide shadow-gold-glow flex items-center gap-2"
+            className="flex-shrink-0 px-8 py-3.5 rounded-xl bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] font-bold text-xs tracking-wide shadow-gold-glow flex items-center gap-2 transition-all hover:scale-105 active:scale-95"
           >
-            <MessageCircle className="w-4 h-4" />
+            <WhatsAppIcon className="w-4 h-4 fill-[#0A0A0A]" />
             <span>Chat Admin WhatsApp</span>
           </a>
         </div>

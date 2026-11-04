@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { faqList } from "@/data/faq";
-import { ChevronDown, HelpCircle, MessageCircle } from "lucide-react";
+import { ChevronDown, HelpCircle } from "lucide-react";
 import { siteConfig } from "@/data/site";
 import ScrollReveal from "@/components/ScrollReveal";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -32,7 +33,7 @@ export default function FAQSection() {
           </div>
         </ScrollReveal>
 
-        {/* FAQ Accordion List */}
+        {/* FAQ Accordion List with tactile touch & hover feedback */}
         <div className="space-y-4">
           {faqList.map((faq, idx) => {
             const isOpen = openIndex === idx;
@@ -43,7 +44,7 @@ export default function FAQSection() {
                 direction="up"
                 delay={idx * 60}
               >
-                <div className="rounded-2xl bg-surface-elevated border border-white/10 overflow-hidden transition-colors">
+                <div className="rounded-2xl bg-surface-elevated border border-white/10 overflow-hidden transition-all duration-300 hover:border-accent-gold/40 hover:scale-[1.01] active:scale-[0.99] hover:shadow-luxury">
                   <button
                     type="button"
                     onClick={() => toggleIndex(idx)}
@@ -75,7 +76,7 @@ export default function FAQSection() {
 
         {/* WhatsApp Help CTA */}
         <ScrollReveal direction="up" delay={200} className="mt-12">
-          <div className="text-center p-6 rounded-2xl bg-[#121212] border border-white/5 space-y-3">
+          <div className="text-center p-6 rounded-2xl bg-[#121212] border border-white/5 space-y-3 transition-all duration-300 hover:border-accent-gold/30 hover:scale-[1.01]">
             <p className="text-xs sm:text-sm text-text-secondary">
               Punya pertanyaan lain yang belum terjawab di sini?
             </p>
@@ -85,7 +86,7 @@ export default function FAQSection() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-xs font-bold text-accent-gold hover:text-accent-gold-light hover:underline"
             >
-              <MessageCircle className="w-4 h-4" />
+              <WhatsAppIcon className="w-4 h-4 fill-accent-gold" />
               <span>Tanya Langsung ke Admin Pademmui via WhatsApp</span>
             </a>
           </div>

@@ -3,18 +3,39 @@
 import { useEffect, useState, ReactNode } from "react";
 
 export default function Template({ children }: { children: ReactNode }) {
-  const [mounted, setMounted] = useState(false);
+  const [stage, setStage] = useState<"initial" | "animating" | "settled">("initial");
 
   useEffect(() => {
-    setMounted(true);
+    // Start entrance animation
+    const animTimer = setTimeout(() => {
+      setStage("animating");
+    }, 10);
+
+    // After animation completes, clear transform so fixed modals remain window-bound
+    const settleTimer = setTimeout(() => {
+      setStage("settled");
+    }, 520);
+
+    return () => {
+      clearTimeout(animTimer);
+      clearTimeout(settleTimer);
+    };
   }, []);
 
   return (
     <div
       style={{
-        opacity: mounted ? 1 : 0,
-        transform: mounted ? "translateY(0)" : "translateY(12px)",
-        transition: "opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+        opacity: stage === "initial" ? 0 : 1,
+        transform:
+          stage === "initial"
+            ? "translateY(12px)"
+            : stage === "animating"
+            ? "translateY(0)"
+            : "none",
+        transition:
+          stage !== "settled"
+            ? "opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)"
+            : "none",
       }}
     >
       {children}

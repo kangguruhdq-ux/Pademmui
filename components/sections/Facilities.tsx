@@ -65,7 +65,7 @@ export default function Facilities() {
                     direction="up"
                     delay={idx * 100}
                   >
-                    <div className="p-5 rounded-2xl bg-surface-elevated/70 border border-white/5 space-y-2.5 hover:border-accent-gold/30 transition-colors h-full">
+                    <div className="p-5 rounded-2xl bg-surface-elevated/70 border border-white/5 space-y-2.5 hover:border-accent-gold/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 h-full cursor-pointer hover:shadow-gold-glow">
                       <div className="w-10 h-10 rounded-xl bg-accent-gold/10 border border-accent-gold/20 flex items-center justify-center text-accent-gold">
                         <Icon className="w-5 h-5" />
                       </div>

@@ -3,6 +3,7 @@ import { Check, Star, Briefcase, ArrowRight, ShieldCheck, Sparkles } from "lucid
 import { createWhatsAppUrl } from "@/lib/utils";
 import { siteConfig } from "@/data/site";
 import ScrollReveal from "@/components/ScrollReveal";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export default function Programs() {
   return (
@@ -25,7 +26,7 @@ export default function Programs() {
               Daftar paket bimbingan tatap muka di Pademmui Barberschool Jogja. Transparan, terstruktur, dan disesuaikan dengan tujuan karir atau wirausaha Anda.
             </p>
 
-            <div className="inline-block p-2.5 px-4 rounded-xl bg-surface-elevated border border-white/10 text-xs">
+            <div className="inline-block p-2.5 px-4 rounded-xl bg-surface-elevated border border-white/10 text-xs transition-transform duration-300 hover:scale-105">
               <span className="text-text-muted">Kebijakan Penyaluran: </span>
               <span className="text-accent-gold font-bold">
                 Program Penyaluran Kerja Barbershop Berlaku Mulai Paket 2
@@ -48,10 +49,10 @@ export default function Programs() {
                 className="h-full flex flex-col"
               >
                 <div
-                  className={`relative rounded-2xl flex-1 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 ${
+                  className={`group relative rounded-2xl flex-1 flex flex-col justify-between transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer ${
                     isRec
-                      ? "bg-[#161616] border-2 border-accent-gold shadow-gold-glow"
-                      : "bg-[#111111] border border-white/10 hover:border-white/20"
+                      ? "bg-[#161616] border-2 border-accent-gold shadow-gold-glow hover:border-accent-gold-light"
+                      : "bg-[#111111] border border-white/10 hover:border-accent-gold/40 hover:shadow-luxury"
                   }`}
                 >
                   {/* Recommended Badge */}
@@ -68,7 +69,7 @@ export default function Programs() {
                       <span className="text-xs uppercase tracking-wider text-accent-gold font-semibold">
                         {pkg.badge}
                       </span>
-                      <h3 className="text-2xl font-bold text-text-ivory mt-1">
+                      <h3 className="text-2xl font-bold text-text-ivory mt-1 group-hover:text-accent-gold transition-colors">
                         {pkg.name}
                       </h3>
                       <p className="text-xs text-text-muted mt-1 font-mono">
@@ -128,12 +129,13 @@ export default function Programs() {
                       href={waUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`w-full py-3.5 px-4 rounded-xl text-xs font-bold tracking-wide transition-all duration-200 flex items-center justify-center gap-2 ${
+                      className={`w-full py-3.5 px-4 rounded-xl text-xs font-bold tracking-wide transition-all duration-300 flex items-center justify-center gap-2 active:scale-95 ${
                         isRec
                           ? "bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] shadow-gold-glow"
-                          : "bg-surface-elevated hover:bg-surface-highlight border border-white/10 text-text-ivory hover:text-accent-gold"
+                          : "bg-surface-elevated hover:bg-surface-highlight border border-white/10 text-text-ivory hover:text-accent-gold hover:border-accent-gold/40"
                       }`}
                     >
+                      <WhatsAppIcon className={`w-4 h-4 ${isRec ? "fill-[#0A0A0A]" : "fill-accent-gold"}`} />
                       <span>{pkg.ctaText}</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </a>
@@ -146,20 +148,20 @@ export default function Programs() {
 
         {/* Pricing Inclusions Summary */}
         <ScrollReveal direction="up" delay={200} className="mt-14">
-          <div className="p-6 sm:p-8 rounded-2xl bg-surface-elevated border border-white/10 grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-text-secondary">
-            <div className="space-y-1.5">
+          <div className="p-6 sm:p-8 rounded-2xl bg-surface-elevated border border-white/10 grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-text-secondary transition-all duration-300 hover:border-accent-gold/30">
+            <div className="space-y-1.5 p-3 rounded-xl hover:bg-white/[0.02] transition-colors">
               <h4 className="font-bold text-text-ivory text-sm">Sudah Termasuk Model Orang</h4>
               <p>
                 Tidak perlu mencari atau membayar model sendiri. Semua model kepala manusia disediakan langsung oleh Pademmui.
               </p>
             </div>
-            <div className="space-y-1.5">
+            <div className="space-y-1.5 p-3 rounded-xl hover:bg-white/[0.02] transition-colors">
               <h4 className="font-bold text-text-ivory text-sm">Fasilitas Mess Peserta</h4>
               <p>
                 Khusus peserta dari luar Jogja, mess siap dihuni hanya dengan kontribusi utilitas Rp200.000 sampai lulus.
               </p>
             </div>
-            <div className="space-y-1.5">
+            <div className="space-y-1.5 p-3 rounded-xl hover:bg-white/[0.02] transition-colors">
               <h4 className="font-bold text-text-ivory text-sm">Garansi Bimbingan Sampai Bisa</h4>
               <p>
                 Jika ada teknik yang belum dikuasai, mentor membimbing dengan sabar dan konsultasi tetap aktif seumur hidup.

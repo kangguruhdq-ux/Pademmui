@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { MapPin, Phone, MessageCircle, Send, ArrowUpRight, ArrowLeft, Clock, ShieldCheck, Mail } from "lucide-react";
+import { MapPin, Phone, Send, ArrowUpRight, ArrowLeft, Clock, ShieldCheck, Mail } from "lucide-react";
 import { siteConfig } from "@/data/site";
 import { createWhatsAppUrl } from "@/lib/utils";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export default function ContactClient() {
   const [name, setName] = useState("");
@@ -162,9 +163,9 @@ export default function ContactClient() {
 
                 <button
                   type="submit"
-                  className="w-full py-4 px-6 rounded-xl bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] font-bold text-xs tracking-wide transition-all shadow-gold-glow flex items-center justify-center gap-2 hover:scale-[1.01]"
+                  className="w-full py-4 px-6 rounded-xl bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] font-bold text-xs tracking-wide transition-all shadow-gold-glow flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-98"
                 >
-                  <MessageCircle className="w-4 h-4" />
+                  <WhatsAppIcon className="w-4 h-4 fill-[#0A0A0A]" />
                   <span>Kirim & Mulai Konsultasi via WhatsApp</span>
                 </button>
               </form>
@@ -227,10 +228,10 @@ export default function ContactClient() {
                     href={siteConfig.contacts.waBarberLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-lg bg-accent-gold text-black hover:bg-accent-gold-light"
+                    className="p-2 rounded-lg bg-accent-gold text-black hover:bg-accent-gold-light transition-transform hover:scale-110 active:scale-95"
                     aria-label="Chat WhatsApp Admin Barber"
                   >
-                    <MessageCircle className="w-4 h-4" />
+                    <WhatsAppIcon className="w-4 h-4 fill-[#0A0A0A]" />
                   </a>
                 </div>
 
@@ -243,10 +244,10 @@ export default function ContactClient() {
                     href={siteConfig.contacts.waShoescareLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-lg bg-white/10 text-text-ivory hover:text-accent-gold"
+                    className="p-2 rounded-lg bg-white/10 text-text-ivory hover:text-accent-gold transition-transform hover:scale-110 active:scale-95"
                     aria-label="Chat WhatsApp Admin Shoescare"
                   >
-                    <MessageCircle className="w-4 h-4" />
+                    <WhatsAppIcon className="w-4 h-4 fill-accent-gold" />
                   </a>
                 </div>
               </div>
@@ -264,7 +265,7 @@ export default function ContactClient() {
                   rel="noopener noreferrer"
                   className="p-3 rounded-xl bg-surface border border-white/5 hover:border-green-500/40 text-center space-y-1 group transition-colors"
                 >
-                  <MessageCircle className="w-5 h-5 text-green-500 mx-auto" />
+                  <WhatsAppIcon className="w-5 h-5 fill-green-500 mx-auto" />
                   <p className="font-semibold text-text-ivory group-hover:text-green-400">Grup WhatsApp</p>
                   <p className="text-[10px] text-text-muted">Komunitas Barber</p>
                 </a>

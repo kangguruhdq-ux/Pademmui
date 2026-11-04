@@ -84,7 +84,7 @@ export default function Curriculum() {
                 delay={idx * 120}
                 className="h-full"
               >
-                <div className="h-full relative p-6 sm:p-7 rounded-2xl bg-surface-elevated border border-white/10 flex flex-col justify-between hover:border-accent-gold/40 transition-colors">
+                <div className="h-full relative p-6 sm:p-7 rounded-2xl bg-surface-elevated border border-white/10 flex flex-col justify-between hover:border-accent-gold/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 hover:shadow-gold-glow cursor-pointer">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-mono font-bold text-accent-gold px-3 py-1 rounded-full bg-accent-gold/10 border border-accent-gold/20">

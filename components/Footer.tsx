@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Phone, MessageCircle, Send, ArrowUpRight, ShieldCheck } from "lucide-react";
+import { MapPin, Phone, Send, ArrowUpRight, ShieldCheck } from "lucide-react";
 import { siteConfig } from "@/data/site";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -145,7 +146,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 hover:text-accent-gold transition-colors"
                 >
-                  <MessageCircle className="w-3.5 h-3.5 text-green-500" />
+                  <WhatsAppIcon className="w-3.5 h-3.5 fill-green-500" />
                   <span>Grup WhatsApp Resmi</span>
                   <ArrowUpRight className="w-3 h-3 opacity-60" />
                 </a>

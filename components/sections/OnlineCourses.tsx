@@ -22,7 +22,7 @@ export default function OnlineCourses() {
           </div>
         </ScrollReveal>
 
-        {/* Online Courses Grid */}
+        {/* Online Courses Grid with tactile touch and hover scale */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {onlinePrograms.slice(0, 3).map((prog, idx) => (
             <ScrollReveal
@@ -31,7 +31,7 @@ export default function OnlineCourses() {
               delay={idx * 150}
               className="h-full flex flex-col"
             >
-              <div className="h-full p-7 rounded-2xl bg-surface-elevated border border-white/10 hover:border-accent-gold/40 transition-all duration-300 flex flex-col justify-between">
+              <div className="h-full p-7 rounded-2xl bg-surface-elevated border border-white/10 hover:border-accent-gold/40 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] hover:shadow-gold-glow flex flex-col justify-between cursor-pointer">
                 <div className="space-y-5">
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-mono uppercase tracking-wider text-accent-gold px-2.5 py-1 rounded-md bg-accent-gold/10">
@@ -81,7 +81,7 @@ export default function OnlineCourses() {
                     href={prog.ctaUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-3.5 px-4 rounded-xl bg-surface hover:bg-surface-highlight border border-white/15 text-text-ivory hover:text-accent-gold text-xs font-bold tracking-wide transition-colors flex items-center justify-center gap-2"
+                    className="w-full py-3.5 px-4 rounded-xl bg-surface hover:bg-surface-highlight border border-white/15 text-text-ivory hover:text-accent-gold text-xs font-bold tracking-wide transition-all duration-200 flex items-center justify-center gap-2 active:scale-95"
                   >
                     <span>Dapatkan Akses Kelas</span>
                     <ExternalLink className="w-3.5 h-3.5 opacity-60" />
@@ -116,7 +116,7 @@ export default function OnlineCourses() {
                 delay={idx * 120}
                 className="h-full"
               >
-                <div className="h-full p-6 rounded-2xl bg-surface/60 border border-white/5 space-y-4 flex flex-col justify-between">
+                <div className="h-full p-6 rounded-2xl bg-surface/60 border border-white/5 hover:border-accent-gold/40 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] hover:shadow-gold-glow space-y-4 flex flex-col justify-between cursor-pointer">
                   <div className="space-y-3">
                     <span className="text-[10px] uppercase tracking-wider font-bold text-accent-gold bg-accent-gold/10 px-2 py-1 rounded inline-block">
                       {res.badge}

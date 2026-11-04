@@ -42,7 +42,7 @@ export default function Testimonials() {
               delay={idx * 100}
               className="h-full flex flex-col"
             >
-              <div className="h-full p-7 rounded-2xl bg-surface-elevated border border-white/10 flex flex-col justify-between space-y-6 hover:border-accent-gold/40 transition-colors">
+              <div className="h-full p-7 rounded-2xl bg-surface-elevated border border-white/10 flex flex-col justify-between space-y-6 hover:border-accent-gold/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 hover:shadow-gold-glow cursor-pointer">
                 <div className="space-y-4">
                   {/* Rating stars & Quote Icon */}
                   <div className="flex items-center justify-between">
