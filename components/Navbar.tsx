@@ -170,28 +170,15 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-md mx-auto space-y-4">
-          {/* Header indicator with explicit close button */}
+          {/* Header indicator */}
           <div className="flex items-center justify-between pb-3 border-b border-white/10">
-            <div className="flex items-center gap-2">
-              <span className="text-[11px] uppercase tracking-widest text-text-muted font-bold">
-                Menu Eksklusif
-              </span>
-              <span className="inline-flex items-center gap-1.5 text-[10px] text-accent-gold font-semibold bg-accent-gold/10 px-2.5 py-0.5 rounded-full border border-accent-gold/25">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent-gold animate-pulse" />
-                Maks. 3 Siswa
-              </span>
-            </div>
-
-            {/* Explicit Close Button inside Drawer Header */}
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(false)}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-accent-gold text-xs font-semibold border border-white/10 transition-colors active:scale-95"
-              aria-label="Tutup menu"
-            >
-              <X className="w-3.5 h-3.5" />
-              <span>Tutup</span>
-            </button>
+            <span className="text-[11px] uppercase tracking-widest text-text-muted font-bold">
+              Menu Eksklusif
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-[10px] text-accent-gold font-semibold bg-accent-gold/10 px-2.5 py-0.5 rounded-full border border-accent-gold/25">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent-gold animate-pulse" />
+              Maks. 3 Siswa
+            </span>
           </div>
 
           {/* Interactive Navigation Cards Grid */}
