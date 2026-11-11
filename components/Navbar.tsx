@@ -19,8 +19,6 @@ import {
   Info,
   Phone,
 } from "lucide-react";
-import { siteConfig } from "@/data/site";
-import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -58,7 +56,6 @@ export default function Navbar() {
     { name: "Testimoni", href: "/#testimoni", icon: Star },
     { name: "Tentang", href: "/about", icon: Info },
     { name: "Kontak", href: "/contact", icon: Phone },
-    { name: "Booking", href: "/booking", icon: Calendar, badge: "Reservasi" },
   ];
 
   return (
@@ -76,8 +73,8 @@ export default function Navbar() {
           paddingBottom: isScrolled ? "0.875rem" : "1.125rem",
         }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-3 sm:gap-4">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-10">
+          <div className="flex items-center justify-between gap-3 xl:gap-6">
             {/* Brand Logo & Title */}
             <Link
               href="/"
@@ -103,13 +100,13 @@ export default function Navbar() {
               </div>
             </Link>
 
-            {/* Desktop Navigation Links — Spacious, Relaxed, with Gold Hover Line */}
-            <nav className="hidden lg:flex items-center gap-5 xl:gap-7">
+            {/* Desktop Navigation Links — Spacious, Relaxed, Centered with Gold Hover Line */}
+            <nav className="hidden lg:flex flex-1 items-center justify-center gap-4 xl:gap-7 2xl:gap-9">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="relative py-2 text-[13px] tracking-wide text-text-secondary hover:text-text-ivory font-medium transition-colors duration-200 group"
+                  className="relative py-2 text-[13px] xl:text-[13.5px] tracking-wide text-text-secondary hover:text-text-ivory font-medium transition-colors duration-200 group whitespace-nowrap"
                 >
                   <span>{link.name}</span>
                   {/* Animated Gold Line on Hover */}
@@ -122,7 +119,7 @@ export default function Navbar() {
             <div className="hidden sm:flex items-center gap-3 flex-shrink-0">
               <Link
                 href="/booking"
-                className="relative group inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] text-xs font-bold tracking-wide transition-all duration-300 shadow-gold-glow hover:scale-105 active:scale-95"
+                className="relative group inline-flex items-center gap-2 px-4 xl:px-5 py-2 xl:py-2.5 rounded-full bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] text-xs font-bold tracking-wide transition-all duration-300 shadow-gold-glow hover:scale-105 active:scale-95 whitespace-nowrap"
               >
                 <Calendar className="w-4 h-4" />
                 <span>Book Appointment</span>
@@ -194,49 +191,26 @@ export default function Navbar() {
           <nav className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
             {navLinks.map((link) => {
               const Icon = link.icon;
-              const isBooking = link.name === "Booking";
 
               return (
                 <Link
                   key={link.name}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`group flex items-center justify-between p-3 rounded-xl border transition-all duration-200 active:scale-[0.98] ${
-                    isBooking
-                      ? "bg-accent-gold/10 border-accent-gold/30 hover:bg-accent-gold/20"
-                      : "bg-white/[0.03] hover:bg-white/[0.08] active:bg-white/[0.1] border-white/5 hover:border-accent-gold/40"
-                  }`}
+                  className="group flex items-center justify-between p-3 rounded-xl border bg-white/[0.03] hover:bg-white/[0.08] active:bg-white/[0.1] border-white/5 hover:border-accent-gold/40 transition-all duration-200 active:scale-[0.98]"
                 >
                   <div className="flex items-center gap-3">
-                    <div
-                      className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform group-hover:scale-110 ${
-                        isBooking
-                          ? "bg-accent-gold text-[#0A0A0A]"
-                          : "bg-accent-gold/10 border border-accent-gold/20 text-accent-gold"
-                      }`}
-                    >
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center transition-transform group-hover:scale-110 bg-accent-gold/10 border border-accent-gold/20 text-accent-gold">
                       <Icon className="w-4 h-4" />
                     </div>
-                    <span
-                      className={`text-sm font-semibold transition-colors ${
-                        isBooking
-                          ? "text-accent-gold font-bold"
-                          : "text-text-ivory group-hover:text-accent-gold"
-                      }`}
-                    >
+                    <span className="text-sm font-semibold transition-colors text-text-ivory group-hover:text-accent-gold">
                       {link.name}
                     </span>
                   </div>
 
                   <div className="flex items-center gap-2">
                     {link.badge && (
-                      <span
-                        className={`text-[10px] font-mono px-2 py-0.5 rounded ${
-                          isBooking
-                            ? "bg-accent-gold text-[#0A0A0A] font-bold"
-                            : "text-accent-gold bg-accent-gold/10"
-                        }`}
-                      >
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded text-accent-gold bg-accent-gold/10">
                         {link.badge}
                       </span>
                     )}

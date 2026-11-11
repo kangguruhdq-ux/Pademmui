@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ChevronDown, Calendar } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export default function Hero() {
@@ -35,27 +35,6 @@ export default function Hero() {
           <p className="text-sm sm:text-base md:text-lg lg:text-xl text-text-secondary leading-relaxed max-w-2xl mx-auto font-normal drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)]">
             Kursus barber intensif di Yogyakarta dengan praktik langsung 100% menggunakan model kepala manusia asli dan bimbingan privat maksimal 3 siswa per kelas.
           </p>
-        </ScrollReveal>
-
-        <ScrollReveal delay={450} direction="up">
-          {/* Clean Dual Action CTAs linking to /booking and /#program */}
-          <div className="pt-3 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
-            <Link
-              href="/booking"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] font-bold text-sm tracking-wide transition-all duration-300 shadow-gold-glow flex items-center justify-center gap-2.5 hover:scale-105 active:scale-95"
-            >
-              <Calendar className="w-4 h-4" />
-              <span>Book Appointment</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-
-            <Link
-              href="/#program"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-black/55 hover:bg-black/80 backdrop-blur-md border border-white/20 hover:border-accent-gold text-text-ivory font-medium text-sm transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 active:scale-95"
-            >
-              <span>Lihat 4 Paket Kursus</span>
-            </Link>
-          </div>
         </ScrollReveal>
 
         {/* Subtle Scroll Down Prompt */}

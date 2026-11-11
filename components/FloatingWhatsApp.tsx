@@ -15,9 +15,8 @@ export default function FloatingWhatsApp() {
         aria-label="Book Appointment & Konsultasi Online Pademmui"
         className="flex items-center gap-3 bg-accent-gold hover:bg-accent-gold-light text-[#0A0A0A] p-3.5 sm:px-5 sm:py-3.5 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-4 focus-visible:ring-accent-gold/40 border border-white/20 shadow-gold-glow"
       >
-        <div className="relative flex items-center justify-center">
+        <div className="flex items-center justify-center">
           <Calendar className="w-5 h-5 text-[#0A0A0A]" />
-          <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-green-500 rounded-full ring-2 ring-[#080808] animate-pulse" />
         </div>
         <div className="hidden sm:flex flex-col text-left">
           <span className="text-xs font-bold tracking-wide leading-tight text-[#0A0A0A]">
