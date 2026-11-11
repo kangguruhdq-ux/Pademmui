@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -8,6 +8,7 @@ import {
   X,
   ArrowRight,
   ChevronRight,
+  ChevronDown,
   Calendar,
   GraduationCap,
   Scissors,
@@ -18,11 +19,38 @@ import {
   Star,
   Info,
   Phone,
+  HelpCircle,
+  type LucideIcon,
 } from "lucide-react";
+
+type DesktopSubItem = {
+  name: string;
+  description: string;
+  href: string;
+  icon: LucideIcon;
+  badge?: string;
+};
+
+type DesktopNavItem =
+  | {
+      type: "dropdown";
+      key: string;
+      name: string;
+      items: DesktopSubItem[];
+    }
+  | {
+      type: "link";
+      key: string;
+      name: string;
+      href: string;
+    };
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const desktopNavRef = useRef<HTMLElement>(null);
+  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,6 +58,28 @@ export default function Navbar() {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Close desktop dropdown on outside click or Escape key
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (desktopNavRef.current && !desktopNavRef.current.contains(event.target as Node)) {
+        setOpenDropdown(null);
+      }
+    };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpenDropdown(null);
+        setMobileMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+      if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    };
   }, []);
 
   // Lock body scroll and toggle mobile-menu-open class to hide floating WhatsApp widget
@@ -46,6 +96,100 @@ export default function Navbar() {
       document.body.classList.remove("mobile-menu-open");
     };
   }, [mobileMenuOpen]);
+
+  const handleDropdownEnter = (key: string) => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    setOpenDropdown(key);
+  };
+
+  const handleDropdownLeave = () => {
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    closeTimeoutRef.current = setTimeout(() => {
+      setOpenDropdown(null);
+    }, 130);
+  };
+
+  const desktopNavItems: DesktopNavItem[] = [
+    {
+      type: "dropdown",
+      key: "program",
+      name: "Program",
+      items: [
+        {
+          name: "Kursus Barber",
+          description: "4 paket pelatihan tatap muka dari nol",
+          href: "/#program",
+          icon: Scissors,
+          badge: "Offline",
+        },
+        {
+          name: "Kursus ShoesCare",
+          description: "Pelatihan cuci & perawatan sepatu",
+          href: "/#shoescare",
+          icon: Sparkles,
+          badge: "Privat",
+        },
+        {
+          name: "Kelas Online",
+          description: "Materi video & panduan mandiri",
+          href: "/#online",
+          icon: Video,
+        },
+        {
+          name: "Detail Kurikulum",
+          description: "Rincian modul & silabus lengkap",
+          href: "/program",
+          icon: GraduationCap,
+        },
+      ],
+    },
+    {
+      type: "link",
+      key: "galeri",
+      name: "Galeri",
+      href: "/gallery",
+    },
+    {
+      type: "dropdown",
+      key: "akademi",
+      name: "Akademi",
+      items: [
+        {
+          name: "Tentang Pademmui",
+          description: "Profil resmi, visi & sejarah sejak 2017",
+          href: "/about",
+          icon: Info,
+        },
+        {
+          name: "Fasilitas & Mess",
+          description: "Asrama, model kepala asli & penyaluran",
+          href: "/#fasilitas",
+          icon: Home,
+        },
+        {
+          name: "Testimoni Alumni",
+          description: "Cerita sukses 1.000+ lulusan aktif",
+          href: "/#testimoni",
+          icon: Star,
+        },
+        {
+          name: "Tanya Jawab (FAQ)",
+          description: "Informasi jadwal, biaya & sertifikat",
+          href: "/#faq",
+          icon: HelpCircle,
+        },
+      ],
+    },
+    {
+      type: "link",
+      key: "kontak",
+      name: "Kontak",
+      href: "/contact",
+    },
+  ];
 
   const navLinks = [
     { name: "Program", href: "/#program", icon: Scissors, badge: "Offline" },
@@ -100,19 +244,108 @@ export default function Navbar() {
               </div>
             </Link>
 
-            {/* Desktop Navigation Links — Spacious, Relaxed, Centered with Gold Hover Line */}
-            <nav className="hidden lg:flex flex-1 items-center justify-center gap-4 xl:gap-7 2xl:gap-9">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className="relative py-2 text-[13px] xl:text-[13.5px] tracking-wide text-text-secondary hover:text-text-ivory font-medium transition-colors duration-200 group whitespace-nowrap"
-                >
-                  <span>{link.name}</span>
-                  {/* Animated Gold Line on Hover */}
-                  <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-accent-gold transition-all duration-300 ease-out group-hover:w-full rounded-full shadow-gold-glow" />
-                </Link>
-              ))}
+            {/* Desktop Navigation Links — Minimalist 4-Item Dropdown Bar */}
+            <nav
+              ref={desktopNavRef}
+              className="hidden lg:flex flex-1 items-center justify-center gap-8 xl:gap-12"
+            >
+              {desktopNavItems.map((item) => {
+                if (item.type === "link") {
+                  return (
+                    <Link
+                      key={item.key}
+                      href={item.href}
+                      onMouseEnter={() => setOpenDropdown(null)}
+                      className="relative py-2 text-sm tracking-wide text-text-secondary hover:text-text-ivory font-medium transition-colors duration-200 group whitespace-nowrap"
+                    >
+                      <span>{item.name}</span>
+                      <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-accent-gold transition-all duration-300 ease-out group-hover:w-full rounded-full shadow-gold-glow" />
+                    </Link>
+                  );
+                }
+
+                const isOpen = openDropdown === item.key;
+
+                return (
+                  <div
+                    key={item.key}
+                    className="relative"
+                    onMouseEnter={() => handleDropdownEnter(item.key)}
+                    onMouseLeave={handleDropdownLeave}
+                  >
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setOpenDropdown((prev) => (prev === item.key ? null : item.key))
+                      }
+                      aria-expanded={isOpen}
+                      aria-haspopup="true"
+                      className={`relative py-2 inline-flex items-center gap-1.5 text-sm tracking-wide font-medium transition-colors duration-200 group whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold rounded-md ${
+                        isOpen
+                          ? "text-accent-gold"
+                          : "text-text-secondary hover:text-text-ivory"
+                      }`}
+                    >
+                      <span>{item.name}</span>
+                      <ChevronDown
+                        className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                          isOpen
+                            ? "rotate-180 text-accent-gold"
+                            : "text-text-muted group-hover:text-accent-gold"
+                        }`}
+                      />
+                      <span
+                        className={`absolute bottom-0 left-0 h-[2px] bg-accent-gold transition-all duration-300 ease-out rounded-full shadow-gold-glow ${
+                          isOpen ? "w-full" : "w-0 group-hover:w-full"
+                        }`}
+                      />
+                    </button>
+
+                    {/* Luxury Dark-Glass Dropdown Panel */}
+                    <div
+                      aria-hidden={!isOpen}
+                      className={`absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[320px] transition-all duration-200 ease-out origin-top ${
+                        isOpen
+                          ? "opacity-100 translate-y-0 visible pointer-events-auto"
+                          : "opacity-0 translate-y-2 invisible pointer-events-none"
+                      }`}
+                    >
+                      <div className="bg-[#0D0D0D]/98 backdrop-blur-2xl border border-white/15 rounded-2xl shadow-2xl p-2 space-y-1">
+                        {item.items.map((sub) => {
+                          const SubIcon = sub.icon;
+                          return (
+                            <Link
+                              key={sub.name}
+                              href={sub.href}
+                              onClick={() => setOpenDropdown(null)}
+                              className="group/item flex items-start gap-3 p-3 rounded-xl hover:bg-white/[0.06] border border-transparent hover:border-accent-gold/30 transition-all duration-200"
+                            >
+                              <div className="w-9 h-9 rounded-lg bg-accent-gold/10 border border-accent-gold/20 flex items-center justify-center flex-shrink-0 text-accent-gold group-hover/item:scale-105 group-hover/item:bg-accent-gold group-hover/item:text-[#0A0A0A] transition-all duration-200">
+                                <SubIcon className="w-4 h-4" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center justify-between gap-2">
+                                  <span className="text-xs font-bold text-text-ivory group-hover/item:text-accent-gold transition-colors">
+                                    {sub.name}
+                                  </span>
+                                  {sub.badge && (
+                                    <span className="text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-accent-gold/15 text-accent-gold border border-accent-gold/25">
+                                      {sub.badge}
+                                    </span>
+                                  )}
+                                </div>
+                                <p className="text-[11px] text-text-muted leading-snug mt-0.5">
+                                  {sub.description}
+                                </p>
+                              </div>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </nav>
 
             {/* Desktop Right CTA: Book Appointment */}
